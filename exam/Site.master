@@ -1,0 +1,58 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DevExpress ASP.NET project</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
+    <link href="~/Content/Site.css" rel="stylesheet" /> 
+    <script type="text/javascript" src="/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/Scripts/popper.min.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <form runat="server">
+        
+            <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+                <div class="container">
+                    <div>                        
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topMenu" aria-controls="topMenu" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand text-primary fw-bold" href="#">Mobarch</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="topMenu">
+                        <dx:BootstrapMenu ID="TopMenu" runat="server" AllowSelectItem="true"  ShowPopOutImages="True" ItemAutoWidth="true" ClientInstanceName="topMenu" Orientation="Horizontal">
+                            <CssClasses Control="top-menu" />
+                            <Items>
+                                <dx:BootstrapMenuItem Text="Faturalar" Name="Home" NavigateUrl="Default.aspx" >
+                                </dx:BootstrapMenuItem>
+                                <dx:BootstrapMenuItem Text="About" Name="About">
+                                </dx:BootstrapMenuItem>
+                                <dx:BootstrapMenuItem Text="Gridview" Name="Raporlar" GroupName="raporlar">
+                                    <Items>
+                                        <dx:BootstrapMenuItem Text="Faturalar" NavigateUrl="Gridview.aspx" GroupName="raporlar">
+                                        </dx:BootstrapMenuItem>
+                                        <dx:BootstrapMenuItem Text="Müşteri Hareketleri" GroupName="raporlar">
+
+                                        </dx:BootstrapMenuItem>
+                                    </Items>
+                                </dx:BootstrapMenuItem>
+                            </Items>
+                        </dx:BootstrapMenu>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <asp:ContentPlaceHolder ID="Content" runat="server">
+                </asp:ContentPlaceHolder>
+            
+               
+
+            </div>
+    </form>
+</body>
+</html>
