@@ -26,7 +26,7 @@
 
     <!-- Gridview -->
     <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="true" Width="100%" 
-        KeyFieldName="FATIRS_NO" Theme="MaterialCompact">
+        KeyFieldName="FATIRS_NO" Theme="MaterialCompact" >
         <SettingsBehavior ColumnMoveMode="ThroughHierarchy" />
         <Settings ShowFilterRow="true" ShowFilterRowMenu="true" />
         <Settings ShowHeaderFilterButton="true" />
@@ -50,4 +50,12 @@
             </dx:GridViewToolbar>
         </Toolbars>
     </dx:ASPxGridView>
+    <dx:ASPxPopupControl ID="popupFaturaDetay" runat="server" Width="700px" Height="400px" ShowHeader="true" Modal="true" CloseAction="CloseButton">
+    <ContentCollection>
+        <dx:PopupControlContentControl runat="server">
+            <dx:ASPxGridView ID="gridFaturaDetay" runat="server" Width="100%" AutoGenerateColumns="true">
+            </dx:ASPxGridView>
+        </dx:PopupControlContentControl>
+    </ContentCollection>
+</dx:ASPxPopupControl>
 </asp:Content>
