@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <sectionGroup name="devExpress">
+      <section xdt:Transform="Remove" xdt:Locator="Condition(@name='bootstrap')" />
+	    <section xdt:Transform="Insert" xdt:Locator="Condition(@name='bootstrap')" name="bootstrap" type="DevExpress.Web.Bootstrap.BootstrapConfigurationSection, DevExpress.Web.Bootstrap.v24.2, Version=24.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+  <system.web>
+    <pages xdt:Transform="InsertIfMissing">
+    </pages>
+  </system.web>
+  <system.web>
+    <pages>
+      <controls xdt:Transform="InsertIfMissing">
+      </controls>
+    </pages>
+  </system.web>
+  <system.web>
+    <pages>
+      <controls>
+        <add xdt:Transform="Remove" xdt:Locator="Condition(@namespace='DevExpress.Web.Bootstrap')" />
+        <add xdt:Transform="Insert" tagPrefix="dx" namespace="DevExpress.Web.Bootstrap" assembly="DevExpress.Web.Bootstrap.v24.2, Version=24.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+      </controls>
+    </pages>
+  </system.web>
+  
+  <devExpress>
+    <bootstrap xdt:Transform="InsertIfMissing" allowClientObjectDeferredInitialization="true" mode="Bootstrap4" iconSet="Embedded" />
+  </devExpress>
+</configuration>

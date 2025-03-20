@@ -1,26 +1,27 @@
 ﻿using System;
-using System.Activities.Expressions;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
-using DevExpress.DashboardCommon.DataBinding;
 using DevExpress.Web;
-
 
 public partial class Account_Gridview : System.Web.UI.Page
 {
-    string connectionString = "Server=192.168.22.150;Database=EDABGIDA;User Id=biltekbilisim;Password=Bilisim20037816;Trusted_Connection=True;";
-    SqlCommand command;
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Kullanıcının giriş yapmasını zorunlu kıl
+        if (Session["DynamicConnectionString"] == null || Session["UserID"] == null)
+        {
+            Response.Redirect("~/Account/Login.aspx");
+            return;
+        }
+
         if (!IsPostBack)
         {
-            BindEmptyGrid(); // Boş Grid göster
-
+            BindEmptyGrid(); // 📌 Boş Grid göster
         }
         else
         {
-            // PostBack olduğunda filtrelenmiş veriyi tekrar yükle
+            // 📌 Eğer kullanıcı daha önce bir filtreleme yaptıysa, tekrar yükle
             if (Session["FilteredQuery"] != null)
             {
                 string query = Session["FilteredQuery"].ToString();
@@ -29,9 +30,8 @@ public partial class Account_Gridview : System.Web.UI.Page
                 BindGridView(query, date1, date2);
             }
         }
-
-
     }
+
     private void BindEmptyGrid()
     {
         DataTable dt = new DataTable();
@@ -51,76 +51,55 @@ public partial class Account_Gridview : System.Web.UI.Page
 
     private void FilterDate()
     {
-        var formatDate = DateFilter1.Date.ToString("yyyy-MM-dd");
+        var formatDate1 = DateFilter1.Date.ToString("yyyy-MM-dd");
         var formatDate2 = DateFilter2.Date.ToString("yyyy-MM-dd");
 
-        var filterQuery = "SELECT CARI_KODU AS 'Müşteri Kodu' ,tcm.CARI_ISIM AS 'Müşteri Ünvan', FATIRS_NO AS 'Fatura Numarası'," +
-            " FORMAT(TARIH,'dd.MM.yyyy') AS 'Fatura Tarihi', " +
-            "FORMAT(CAST(BRUTTUTAR AS NUMERIC(10,1)),'N' ,'tr-TR')+' TL' AS 'Brüt Tutar'," +
-            " FORMAT(CAST(GENELTOPLAM AS NUMERIC(10,1)),'N','tr-TR')+ ' TL' AS 'Genel Toplam' " +
-            "FROM tFatura" +
-            " LEFT JOIN dbo.tCariMaster tCM" +
-            " ON tcm.CARI_KOD = dbo.tFatura.CARI_KODU " +
-            "WHERE TARIH BETWEEN @date1 AND @date2";
+        var filterQuery = "SELECT CARI_KODU AS 'Müşteri Kodu', tcm.CARI_ISIM AS 'Müşteri Ünvan', FATIRS_NO AS 'Fatura Numarası'," +
+                          " FORMAT(TARIH,'dd.MM.yyyy') AS 'Fatura Tarihi'," +
+                          " FORMAT(CAST(BRUTTUTAR AS NUMERIC(10,1)),'N' ,'tr-TR') + ' TL' AS 'Brüt Tutar'," +
+                          " FORMAT(CAST(GENELTOPLAM AS NUMERIC(10,1)),'N','tr-TR') + ' TL' AS 'Genel Toplam'" +
+                          " FROM tFatura" +
+                          " LEFT JOIN dbo.tCariMaster tCM ON tcm.CARI_KOD = dbo.tFatura.CARI_KODU" +
+                          " WHERE TARIH BETWEEN @date1 AND @date2";
 
-        // Veriyi Session içine kaydet
+        // 📌 Session içine kaydet
         Session["FilteredQuery"] = filterQuery;
-        Session["Date1"] = formatDate;
+        Session["Date1"] = formatDate1;
         Session["Date2"] = formatDate2;
 
-        // Grid'i güncelle
-        BindGridView(filterQuery, formatDate, formatDate2);
-
+        // 📌 Grid'i güncelle
+        BindGridView(filterQuery, formatDate1, formatDate2);
     }
 
-    private void BindGridViewWithParams(string filterQuery, string formatDate, string formatDate2)
+    private void BindGridView(string query, string formatDate1, string formatDate2)
     {
-        using (SqlConnection con = new SqlConnection(connectionString))
-        {
-            using (SqlCommand command = new SqlCommand(filterQuery, con))
-            {
-                command.Parameters.Add("@date1", SqlDbType.Date).Value = formatDate;
-                command.Parameters.Add("@date2", SqlDbType.Date).Value = formatDate2;
+        string connectionString = Session["DynamicConnectionString"] as string;
 
-                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                {
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    ASPxGridView1.DataSource = dt;
-                    ASPxGridView1.DataBind();
-                }
-            }
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            Response.Redirect("~/Login.aspx");
+            return;
         }
-    }
-
-    private void BindTextBox()
-    {
-        DateFilter1.EditFormatString = "dd/MM/yyyy";
-
-    }
-
-    private void BindGridView(String query,String formatdate1 , String formatdate2)
-    {
 
         using (SqlConnection con = new SqlConnection(connectionString))
         {
-      
+            con.Open();
+
             using (SqlCommand command = new SqlCommand(query, con))
             {
-
                 DateTime date1, date2;
 
-                if (DateTime.TryParse(formatdate1, out date1) && DateTime.TryParse(formatdate2, out date2))
+                if (DateTime.TryParse(formatDate1, out date1) && DateTime.TryParse(formatDate2, out date2))
                 {
                     command.Parameters.Add("@date1", SqlDbType.Date).Value = date1;
                     command.Parameters.Add("@date2", SqlDbType.Date).Value = date2;
                 }
                 else
                 {
-                    // Tarih verisi yoksa varsayılan bir tarih aralığı belirle
                     command.Parameters.Add("@date1", SqlDbType.Date).Value = DBNull.Value;
                     command.Parameters.Add("@date2", SqlDbType.Date).Value = DBNull.Value;
                 }
+
                 using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
                     DataTable dt = new DataTable();
@@ -137,11 +116,9 @@ public partial class Account_Gridview : System.Web.UI.Page
                         };
                         ASPxGridView1.Columns.Add(gridColumn);
                     }
-                    
 
                     ASPxGridView1.DataSource = dt;
                     ASPxGridView1.KeyFieldName = "FATIRS_NO"; // Primary Key olabilecek bir alan
-
                     ASPxGridView1.SettingsBehavior.ColumnMoveMode = GridColumnMoveMode.ThroughHierarchy;
                     ASPxGridView1.Settings.ShowFilterRow = true;
                     ASPxGridView1.Settings.ShowFilterRowMenu = true;

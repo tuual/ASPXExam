@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <sectionGroup name="devExpress">
+	    <section xdt:Transform="Remove" xdt:Locator="Condition(@name='bootstrap')" />
+    </sectionGroup>
+  </configSections>
+  <system.web>
+    <pages>
+      <controls>
+        <add xdt:Transform="Remove" xdt:Locator="Condition(@namespace='DevExpress.Web.Bootstrap')" />
+      </controls>
+    </pages>
+  </system.web>
+</configuration>
