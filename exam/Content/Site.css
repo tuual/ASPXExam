@@ -1,28 +1,53 @@
-﻿body {
+﻿/* Genel Sayfa Ayarları */
+body {
     padding-top: 70px;
     padding-bottom: 20px;
+    overflow-x: hidden; /* Sayfa taşmasını engeller */
 }
 
+/* NAVBAR Responsive */
 @media (max-width: 767px) {
     .top-menu {
         top: 6px;
         right: 52px;
         width: 100%;
     }
-    .top-menu>.navbar-nav>li {
-        float: none!important;
-    }
+
+        .top-menu > .navbar-nav > li {
+            float: none !important;
+        }
 }
 
 @media (min-width: 768px) {
     .top-menu {
         margin-right: -15px;
     }
+
     .top-auth-menu {
         margin-left: auto;
     }
 }
 
+/* DEVEXPRESS GRID RESPONSIVE */
+@media (max-width: 768px) {
+    .dxgvTable {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+        .dxgvTable tr {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .dxgvTable td, .dxgvTable th {
+            min-width: 150px;
+            flex: 1;
+        }
+}
+
+/* NAVBAR UI */
 .dx-bs5.bg-light {
     padding: 2rem 1rem;
     margin-bottom: 2rem;
@@ -36,7 +61,71 @@
     }
 }
 
-.SecondNav-font a {  
-     color: white;  
- }  
+/* SECOND NAV COLOR */
+.SecondNav-font a {
+    color: white;
+}
 
+/* SIDEBAR */
+#sidebar {
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #f8f9fa;
+    overflow-x: hidden;
+    transition: all 0.3s ease-in-out;
+    padding-top: 60px;
+    z-index: 2000;
+}
+
+    #sidebar a {
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #333;
+        display: block;
+        transition: 0.3s;
+    }
+
+    #sidebar.active {
+        width: 250px;
+    }
+
+#main-content {
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar-open #main-content {
+    margin-left: 250px;
+}
+
+/* RESPONSIVE SIDEBAR */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 100%;
+        left: -100%;
+    }
+
+        #sidebar.active {
+            left: 0;
+        }
+
+    .sidebar-open #main-content {
+        margin-left: 0;
+    }
+}
+
+/* TOGGLE BUTTON */
+#toggleSidebar {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    background: none;
+    border: none;
+    color: #333;
+    z-index: 3000;
+}

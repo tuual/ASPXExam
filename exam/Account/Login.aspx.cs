@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 
@@ -10,6 +13,33 @@ public partial class Login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+    }
+
+    private List<string> GetUserReports(int userId)
+    {
+        List<string> reportList = new List<string>();
+
+        string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            con.Open();
+            string query = "SELECT ReportName FROM ReportPermissions WHERE UserID = @UserID AND CanView = 1";
+
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        reportList.Add(reader["ReportName"].ToString());
+                    }
+                }
+            }
+        }
+
+        return reportList;
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
@@ -29,8 +59,7 @@ public partial class Login : System.Web.UI.Page
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-
-                string query = "SELECT ID, ServerName, DbLogin, DbPassword, DatabaseName FROM Users WHERE Username = @Username AND PasswordHash = @Password";
+                string query = "SELECT ID, ServerName, DbLogin, DbPassword, DatabaseName, IsAdmin FROM Users WHERE Username = @Username AND PasswordHash = @Password";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -39,7 +68,7 @@ public partial class Login : System.Web.UI.Page
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (reader.Read()) // Kullanıcı bulunduysa
                         {
                             string userId = reader["ID"].ToString();
                             string serverName = reader["ServerName"].ToString();
@@ -47,18 +76,28 @@ public partial class Login : System.Web.UI.Page
                             string dbPassword = reader["DbPassword"].ToString();
                             string databaseName = reader["DatabaseName"].ToString();
 
-                            string dynamicConnectionString = string.Format(
-                                "Server={0};Database={1};User Id={2};Password={3};",
-                                serverName, databaseName, dbLogin, dbPassword
-                            );
+                            // **IsAdmin Değerini Kontrol Et**
+                            bool isAdmin = false;
+                            if (reader["IsAdmin"] != DBNull.Value)
+                            {
+                                isAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+                            }
+
+                            if (string.IsNullOrEmpty(databaseName))
+                            {
+                                lblMessage.Text = "Kullanıcının bağlı olduğu veritabanı bulunamadı!";
+                                lblMessage.ForeColor = System.Drawing.Color.Red;
+                                return;
+                            }
 
                             // **Session Değerlerini Kaydet**
                             Session["UserID"] = userId;
-                            Session["DynamicConnectionString"] = dynamicConnectionString;
                             Session["DatabaseName"] = databaseName;
-                            Session["IsAuthenticated"] = true;  // Kullanıcı oturum açtı mı?
+                            Session["IsAdmin"] = isAdmin;
+                            Session["IsAuthenticated"] = true;
 
-                            Response.Redirect("~/Gridview.aspx");
+                            // **Başarılı giriş, Main sayfasına yönlendir**
+                            Response.Redirect("~/Main.aspx");
                         }
                         else
                         {
@@ -73,6 +112,17 @@ public partial class Login : System.Web.UI.Page
         {
             lblMessage.Text = "Bir hata oluştu: " + ex.Message;
             lblMessage.ForeColor = System.Drawing.Color.Red;
+        }
+
+    }
+    private bool VerifyPassword(string enteredPassword, string storedHash)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(enteredPassword);
+            byte[] hash = sha256.ComputeHash(bytes);
+            string enteredHash = Convert.ToBase64String(hash);
+            return enteredHash == storedHash; // Girilen şifreyi hashleyip karşılaştır
         }
     }
 }
