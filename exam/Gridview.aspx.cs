@@ -9,6 +9,8 @@ public partial class Account_Gridview : System.Web.UI.Page
     private string dbName;
     protected void Page_Load(object sender, EventArgs e)
     {
+       
+
         // Kullanıcının giriş yapmasını zorunlu kıl-ma
         if (Session["UserID"] == null && Session["SecilenSirket"] == null && Session["ServerName"] == null)
         {
@@ -16,7 +18,19 @@ public partial class Account_Gridview : System.Web.UI.Page
             return;
         }
 
-        dbName = Session["SecilenSirket"].ToString();
+
+        int userId = Convert.ToInt32(Session["UserID"]);
+        string reportName = "Müşteri Hareketleri"; // Bu sayfa ile ilgili rapor adı
+        UseReportLoader reportLoader = new UseReportLoader();
+        if (!reportLoader.HasAccessToReport(userId, reportName))
+        {
+            Response.Redirect("~/Account/AccessDenied.aspx");
+            return;
+        }
+      
+
+
+            dbName = Session["SecilenSirket"].ToString();
         if (!IsPostBack)
         {
             BindEmptyGrid();

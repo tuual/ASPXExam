@@ -91,51 +91,11 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 
         int userId = Convert.ToInt32(Session["UserID"]);
         bool isAdmin = Session["IsAdmin"] != null && Convert.ToBoolean(Session["IsAdmin"]);
-        string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
 
-        using (SqlConnection con = new SqlConnection(connectionString))
-        {
-            con.Open();
-            string query = isAdmin
-                ? "SELECT DISTINCT ReportName FROM dbo.ReportPermissions"
-                : "SELECT ReportName FROM dbo.ReportPermissions WHERE UserID = @UserID AND CanView = 1";
+        UseReportLoader reportLoader = new UseReportLoader();
+        string reportsHtml = reportLoader.LoadUserReports(userId, isAdmin);
 
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                if (!isAdmin)
-                {
-                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
-                }
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    string reportsHtml = "";
-                    while (reader.Read())
-                    {
-                        string reportName = reader["ReportName"].ToString();
-                        string reportUrl = "";
-
-                        // **Hangi rapor hangi sayfaya gidecek?**
-                        if (reportName == "Müşteri Hareketleri")
-                            reportUrl = "Gridview.aspx";
-                        else if (reportName == "Fatura Raporu")
-                            reportUrl = "Raporlar/FaturaGrid.aspx";
-
-                        // **Eğer link boşsa, hata mesajı ekleyelim**
-                        if (string.IsNullOrEmpty(reportUrl))
-                        {
-                            Debug.WriteLine("UYARI: " + reportName + " için bir URL atanmadı!");
-                        }
-
-                        reportsHtml += "<li class='list-group-item'><a href='" + reportUrl + "'>" + reportName + "</a></li>";
-                    }
-
-                    Debug.WriteLine("LoadUserReports: Oluşturulan HTML => " + reportsHtml);
-
-                    ltReports.Text = reportsHtml;
-                }
-            }
-        }
+        ltReports.Text = reportsHtml;
     }
 
 

@@ -65,7 +65,7 @@ public partial class Account_SirketSecme : System.Web.UI.Page
             lblMessage.Text = "Şirket seçimi başarılı. Yönlendiriliyorsunuz...";
             Timer timer = new Timer();
             timer.Interval = 2000;
-            Response.Redirect("~/Gridview.aspx");
+            Response.Redirect("~/Main.aspx");
 
         }
         else
