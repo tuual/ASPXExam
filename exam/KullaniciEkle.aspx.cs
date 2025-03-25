@@ -74,47 +74,57 @@ public partial class KullaniciEkle : System.Web.UI.Page
         string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
 
         int newUserId;
-
-        using (SqlConnection con = new SqlConnection(connectionString))
+        try
         {
-            con.Open();
-
-            // **Kullanıcıyı ekle ve ID'sini al**
-            string query = "INSERT INTO dbo.Users (Username, PasswordHash, IsAdmin, ServerName, DatabaseName) " +
-                           "OUTPUT INSERTED.ID VALUES (@Username, @PasswordHash, @IsAdmin, @ServerName, @DatabaseName)";
-
-            using (SqlCommand cmd = new SqlCommand(query, con))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 100).Value = username;
-                cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 255).Value = hashedPassword;
-                cmd.Parameters.Add("@IsAdmin", SqlDbType.Bit).Value = isAdmin;
-                cmd.Parameters.Add("@ServerName", SqlDbType.NVarChar, 100).Value = adminServerName;
-                cmd.Parameters.Add("@DatabaseName", SqlDbType.NVarChar, 100).Value = adminDatabaseName;
+                con.Open();
 
-                newUserId = (int)cmd.ExecuteScalar(); // Yeni kullanıcının ID'sini al
-            }
+                // **Kullanıcıyı ekle ve ID'sini al**
+                string query = "INSERT INTO dbo.Users (Username, PasswordHash,DbLogin,DbPassword, IsAdmin, ServerName, DatabaseName) " +
+                               "OUTPUT INSERTED.ID VALUES (@Username, @PasswordHash,@dbLogin,@dbPassword, @IsAdmin, @ServerName, @DatabaseName)";
 
-            // **Seçilen rapor yetkilerini kaydet**
-            foreach (ListItem item in cblReports.Items)
-            {
-                if (item.Selected)
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    string insertReportQuery = "INSERT INTO ReportPermissions (UserID, ReportName, CanView) VALUES (@UserID, @ReportName, 1)";
+                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 100).Value = username;
+                    cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 255).Value = hashedPassword;
+                    cmd.Parameters.Add("@IsAdmin", SqlDbType.Bit).Value = isAdmin;
+                    cmd.Parameters.Add("@dbLogin",SqlDbType.NVarChar, 100).Value = "biltekbilisim";
+                    cmd.Parameters.Add("@dbPassword",SqlDbType.NVarChar, 100).Value = "Bilisim20037816";
+                    cmd.Parameters.Add("@ServerName", SqlDbType.NVarChar, 100).Value = adminServerName;
+                    cmd.Parameters.Add("@DatabaseName", SqlDbType.NVarChar, 100).Value = adminDatabaseName;
 
-                    using (SqlCommand cmdReport = new SqlCommand(insertReportQuery, con))
+                    newUserId = (int)cmd.ExecuteScalar(); // Yeni kullanıcının ID'sini al
+                }
+
+                // **Seçilen rapor yetkilerini kaydet**
+                foreach (ListItem item in cblReports.Items)
+                {
+                    if (item.Selected)
                     {
-                        cmdReport.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserId;
-                        cmdReport.Parameters.Add("@ReportName", SqlDbType.NVarChar, 100).Value = item.Value;
-                        cmdReport.ExecuteNonQuery();
+                        string insertReportQuery = "INSERT INTO ReportPermissions (UserID, ReportName, CanView) VALUES (@UserID, @ReportName, 1)";
+
+                        using (SqlCommand cmdReport = new SqlCommand(insertReportQuery, con))
+                        {
+                            cmdReport.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserId;
+                            cmdReport.Parameters.Add("@ReportName", SqlDbType.NVarChar, 100).Value = item.Value;
+                            cmdReport.ExecuteNonQuery();
+                        }
                     }
                 }
             }
-        }
 
-        successMessage.InnerText = "Kullanıcı başarıyla eklendi!";
-        successMessage.Attributes["class"] = "alert alert-success d-block";
-        txtUsername.Text = "";
-        txtPassword.Text = "";
+            successMessage.InnerText = "Kullanıcı başarıyla eklendi!";
+            successMessage.Attributes["class"] = "alert alert-success d-block";
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+     
     }
 
     private string HashPassword(string password)
@@ -130,5 +140,9 @@ public partial class KullaniciEkle : System.Web.UI.Page
     protected void btnBack_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Main.aspx", false);
+    }
+
+    protected void ddlIsAdmin_SelectedIndexChanged(object sender, EventArgs e)
+    {
     }
 }

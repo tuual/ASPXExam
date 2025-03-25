@@ -11,7 +11,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["UserID"] == null)
+        if (Session["UserID"] == null && Session["ServerName"] == null && Session["SecilenSirket"] == null)
         {
             string currentPage = Request.Url.AbsolutePath.ToLower();
 
@@ -22,14 +22,6 @@ public partial class SiteMaster : System.Web.UI.MasterPage
             }
         }
 
-        // **Eğer Login sayfasındaysa Navbar'ı gizle**
-        if (Request.Url.AbsolutePath.Contains("Login.aspx"))
-        {
-            if (Navbar != null)
-            {
-                Navbar.Visible = false;
-            }
-        }
 
         // **Eğer Kullanıcı Adminse, Kullanıcı Ekle Butonunu Göster**
         if (Session["UserID"] != null)
@@ -42,12 +34,50 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                 lnkUserAdd.Visible = true;
             }
         }
-
         // **Kullanıcının Yetkili Olduğu Raporları Getir**
         if (!IsPostBack)
         {
             LoadUserReports();
         }
+        navBarGizleme();
+    }
+
+
+    private void navBarGizleme()
+    {
+        // **Eğer Login sayfasındaysa Navbar'ı gizle**
+        if (Request.Url.AbsolutePath.Contains("Login.aspx"))
+
+            if (Session["UserID"] == null && !Request.Url.AbsolutePath.Contains("Account/Login.aspx"))
+            {
+                Response.Redirect("Account/Login.aspx"); // Kullanıcı giriş yapmadıysa Login sayfasına yönlendir
+            }
+        if (Request.Url.AbsolutePath.Contains("SirketSecme.aspx"))
+
+            if (Session["ServerName"] == null && Session["SecilenSirket"] == null)
+            {
+                Response.Redirect("Account/SirketSecme.aspx");
+            }
+
+        if (Request.Url.AbsolutePath.Contains("Account/SirketSecme.aspx"))
+        {
+            if (Navbar != null)
+            {
+                Navbar.Visible = false;
+            }
+        }
+
+
+        // Eğer Login sayfasındaysa Navbar'ı gizle
+        if (Request.Url.AbsolutePath.Contains("Account/Login.aspx"))
+        {
+            if (Navbar != null)
+            {
+                Navbar.Visible = false;
+            }
+        }
+
+      
     }
 
     private void LoadUserReports()
@@ -89,7 +119,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
                         if (reportName == "Müşteri Hareketleri")
                             reportUrl = "Gridview.aspx";
                         else if (reportName == "Fatura Raporu")
-                            reportUrl = "FaturaGrid.aspx";
+                            reportUrl = "Raporlar/FaturaGrid.aspx";
 
                         // **Eğer link boşsa, hata mesajı ekleyelim**
                         if (string.IsNullOrEmpty(reportUrl))

@@ -30,7 +30,7 @@
 
                 <div class="mb-3">
                     <label for="ddlIsAdmin" class="form-label">Yetki:</label>
-                    <asp:DropDownList ID="ddlIsAdmin" runat="server" CssClass="form-select">
+                    <asp:DropDownList ID="ddlIsAdmin" runat="server" CssClass="form-select" OnSelectedIndexChanged="ddlIsAdmin_SelectedIndexChanged">
                         <asp:ListItem Text="Normal Kullanıcı" Value="0"></asp:ListItem>
                         <asp:ListItem Text="Admin" Value="1"></asp:ListItem>
                     </asp:DropDownList>

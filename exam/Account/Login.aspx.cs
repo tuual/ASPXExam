@@ -19,7 +19,6 @@ public partial class Login : System.Web.UI.Page
     {
         List<string> reportList = new List<string>();
 
-        string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
         using (SqlConnection con = new SqlConnection(connectionString))
         {
             con.Open();
@@ -59,17 +58,26 @@ public partial class Login : System.Web.UI.Page
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "SELECT ID, ServerName, DbLogin, DbPassword, DatabaseName, IsAdmin FROM Users WHERE Username = @Username AND PasswordHash = @Password";
+                string query = "SELECT ID, ServerName, DbLogin, DbPassword, DatabaseName, IsAdmin, PasswordHash FROM Users WHERE Username = @Username";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = username;
-                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read()) // Kullanıcı bulunduysa
                         {
+                            string storedHash = reader["PasswordHash"].ToString(); // Veritabanındaki hash
+
+                            // Kullanıcının girdiği şifre ile hash karşılaştır
+                            if (!VerifyPassword(password, storedHash))
+                            {
+                                lblMessage.Text = "Hatalı kullanıcı adı veya şifre!";
+                                lblMessage.ForeColor = System.Drawing.Color.Red;
+                                return;
+                            }
+
                             string userId = reader["ID"].ToString();
                             string serverName = reader["ServerName"].ToString();
                             string dbLogin = reader["DbLogin"].ToString();
@@ -92,12 +100,13 @@ public partial class Login : System.Web.UI.Page
 
                             // **Session Değerlerini Kaydet**
                             Session["UserID"] = userId;
+                            Session["ServerName"] = serverName;
                             Session["DatabaseName"] = databaseName;
                             Session["IsAdmin"] = isAdmin;
                             Session["IsAuthenticated"] = true;
 
                             // **Başarılı giriş, Main sayfasına yönlendir**
-                            Response.Redirect("~/Main.aspx");
+                            Response.Redirect("SirketSecme.aspx");
                         }
                         else
                         {
@@ -113,8 +122,8 @@ public partial class Login : System.Web.UI.Page
             lblMessage.Text = "Bir hata oluştu: " + ex.Message;
             lblMessage.ForeColor = System.Drawing.Color.Red;
         }
-
     }
+
     private bool VerifyPassword(string enteredPassword, string storedHash)
     {
         using (SHA256 sha256 = SHA256.Create())

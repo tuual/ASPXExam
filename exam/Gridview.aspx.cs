@@ -6,22 +6,23 @@ using DevExpress.Web;
 
 public partial class Account_Gridview : System.Web.UI.Page
 {
+    private string dbName;
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Kullanıcının giriş yapmasını zorunlu kıl
-        if (Session["DynamicConnectionString"] == null || Session["UserID"] == null)
+        // Kullanıcının giriş yapmasını zorunlu kıl-ma
+        if (Session["UserID"] == null && Session["SecilenSirket"] == null && Session["ServerName"] == null)
         {
             Response.Redirect("~/Account/Login.aspx");
             return;
         }
 
+        dbName = Session["SecilenSirket"].ToString();
         if (!IsPostBack)
         {
-            BindEmptyGrid(); // 📌 Boş Grid göster
+            BindEmptyGrid();
         }
         else
         {
-            // 📌 Eğer kullanıcı daha önce bir filtreleme yaptıysa, tekrar yükle
             if (Session["FilteredQuery"] != null)
             {
                 string query = Session["FilteredQuery"].ToString();
@@ -36,7 +37,6 @@ public partial class Account_Gridview : System.Web.UI.Page
     {
         DataTable dt = new DataTable();
 
-        // 📌 GridView'de görünmesini istediğin sütunları ekle
         dt.Columns.Add("Müşteri Kodu", typeof(string));
         dt.Columns.Add("Müşteri Ünvan", typeof(string));
         dt.Columns.Add("Fatura Numarası", typeof(string));
@@ -44,30 +44,32 @@ public partial class Account_Gridview : System.Web.UI.Page
         dt.Columns.Add("Brüt Tutar", typeof(string));
         dt.Columns.Add("Genel Toplam", typeof(string));
 
-        // 📌 GridView'e bağla (Boş ama sütunlar var)
         ASPxGridView1.DataSource = dt;
         ASPxGridView1.DataBind();
     }
 
     private void FilterDate()
     {
-        var formatDate1 = DateFilter1.Date.ToString("yyyy-MM-dd");
-        var formatDate2 = DateFilter2.Date.ToString("yyyy-MM-dd");
+        string formatDate1 = DateFilter1.Date == DateTime.MinValue ? "" : DateFilter1.Date.ToString("yyyy-MM-dd");
+        string formatDate2 = DateFilter2.Date == DateTime.MinValue ? "" : DateFilter2.Date.ToString("yyyy-MM-dd");
 
-        var filterQuery = "SELECT CARI_KODU AS 'Müşteri Kodu', tcm.CARI_ISIM AS 'Müşteri Ünvan', FATIRS_NO AS 'Fatura Numarası'," +
-                          " FORMAT(TARIH,'dd.MM.yyyy') AS 'Fatura Tarihi'," +
-                          " FORMAT(CAST(BRUTTUTAR AS NUMERIC(10,1)),'N' ,'tr-TR') + ' TL' AS 'Brüt Tutar'," +
-                          " FORMAT(CAST(GENELTOPLAM AS NUMERIC(10,1)),'N','tr-TR') + ' TL' AS 'Genel Toplam'" +
-                          " FROM tFatura" +
-                          " LEFT JOIN dbo.tCariMaster tCM ON tcm.CARI_KOD = dbo.tFatura.CARI_KODU" +
-                          " WHERE TARIH BETWEEN @date1 AND @date2";
+        string filterQuery = "SELECT CARI_KODU AS 'Müşteri Kodu', tcm.CARI_ISIM AS 'Müşteri Ünvan', FATIRS_NO AS 'Fatura Numarası'," +
+                             " FORMAT(TARIH,'dd.MM.yyyy') AS 'Fatura Tarihi'," +
+                             " FORMAT(CAST(BRUTTUTAR AS DECIMAL(18,2)),'N' ,'tr-TR') + ' TL' AS 'Brüt Tutar'," +
+                             " FORMAT(CAST(GENELTOPLAM AS DECIMAL(18,2)),'N','tr-TR') + ' TL' AS 'Genel Toplam'" +
+                             " FROM tFatura" +
+                             " LEFT JOIN dbo.tCariMaster tCM ON tcm.CARI_KOD = dbo.tFatura.CARI_KODU";
 
-        // 📌 Session içine kaydet
+        // Eğer tarih seçilmemişse tarih filtresini kaldır
+        if (!string.IsNullOrEmpty(formatDate1) && !string.IsNullOrEmpty(formatDate2))
+        {
+            filterQuery += " WHERE TARIH BETWEEN @date1 AND @date2";
+        }
+
         Session["FilteredQuery"] = filterQuery;
         Session["Date1"] = formatDate1;
         Session["Date2"] = formatDate2;
 
-        // 📌 Grid'i güncelle
         BindGridView(filterQuery, formatDate1, formatDate2);
     }
 
@@ -143,6 +145,7 @@ public partial class Account_Gridview : System.Web.UI.Page
     {
         if (Session["FilteredQuery"] != null)
         {
+        
             string query = Session["FilteredQuery"].ToString();
             string date1 = Session["Date1"].ToString();
             string date2 = Session["Date2"].ToString();

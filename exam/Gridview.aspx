@@ -34,7 +34,7 @@
 
     <!-- Gridview -->
     <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="true" Width="100%" 
-        KeyFieldName="FATIRS_NO" Theme="MaterialCompact" OnPageIndexChanged="ASPxGridView1_PageIndexChanged" >
+        KeyFieldName="FATIRS_NO" Theme="MaterialCompact" OnPageIndexChanged="ASPxGridView1_PageIndexChanged">
         <SettingsBehavior ColumnMoveMode="ThroughHierarchy" />
         <Settings ShowFilterRow="true" ShowFilterRowMenu="true" />
         <Settings ShowHeaderFilterButton="true" />

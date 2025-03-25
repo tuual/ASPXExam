@@ -1,50 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\",
+  "WorkspaceRootPath": "C:\\Projeler\\exam\\ASPXExam\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\account\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\account\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|c:\\projeler\\exam\\aspxexam\\exam\\account\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|solutionrelative:exam\\account\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|c:\\users\\arda\\source\\repos\\aspxexam\\exam\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|c:\\projeler\\exam\\aspxexam\\exam\\gridview.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|solutionrelative:exam\\gridview.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|c:\\projeler\\exam\\aspxexam\\exam\\account\\sirketsecme.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|solutionrelative:exam\\account\\sirketsecme.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\gridview.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\gridview.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|c:\\projeler\\exam\\aspxexam\\exam\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|solutionrelative:exam\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\main.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\main.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|c:\\projeler\\exam\\aspxexam\\exam\\kullaniciekle.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|solutionrelative:exam\\kullaniciekle.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|c:\\users\\arda\\source\\repos\\aspxexam\\exam\\main.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\main.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\account\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\account\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\kullaniciekle.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\kullaniciekle.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\kullaniciekle.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\kullaniciekle.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\gridview.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam|solutionrelative:exam\\gridview.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|c:\\projeler\\exam\\aspxexam\\exam\\kullaniciekle.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{4551C5C9-A8EF-CE6E-6828-5866C27D0555}|C:\\Projeler\\exam\\ASPXExam\\exam|solutionrelative:exam\\kullaniciekle.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,157 +34,88 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Gridview.aspx",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Gridview.aspx",
-              "RelativeDocumentMoniker": "exam\\Gridview.aspx",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Gridview.aspx",
-              "RelativeToolTip": "exam\\Gridview.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-03-18T08:06:33.177Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Gridview.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Gridview.aspx.cs",
-              "RelativeDocumentMoniker": "exam\\Gridview.aspx.cs",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Gridview.aspx.cs",
-              "RelativeToolTip": "exam\\Gridview.aspx.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwAwAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T08:58:35.741Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Login.aspx",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Account\\Login.aspx",
-              "RelativeDocumentMoniker": "exam\\Account\\Login.aspx",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Account\\Login.aspx",
-              "RelativeToolTip": "exam\\Account\\Login.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-03-18T06:45:48.01Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Login.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Account\\Login.aspx.cs",
-              "RelativeDocumentMoniker": "exam\\Account\\Login.aspx.cs",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Account\\Login.aspx.cs",
-              "RelativeToolTip": "exam\\Account\\Login.aspx.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAkwHMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T06:45:51.445Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Site.master.cs",
+              "DocumentMoniker": "C:\\Projeler\\exam\\ASPXExam\\exam\\Site.master.cs",
+              "RelativeDocumentMoniker": "exam\\Site.master.cs",
+              "ToolTip": "C:\\Projeler\\exam\\ASPXExam\\exam\\Site.master.cs",
+              "RelativeToolTip": "exam\\Site.master.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAawHUAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T08:01:58.439Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Main.aspx",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Main.aspx",
-              "RelativeDocumentMoniker": "exam\\Main.aspx",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Main.aspx",
-              "RelativeToolTip": "exam\\Main.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-03-24T09:49:00.792Z",
+              "Title": "KullaniciEkle.aspx.cs",
+              "DocumentMoniker": "C:\\Projeler\\exam\\ASPXExam\\exam\\KullaniciEkle.aspx.cs",
+              "RelativeDocumentMoniker": "exam\\KullaniciEkle.aspx.cs",
+              "ToolTip": "C:\\Projeler\\exam\\ASPXExam\\exam\\KullaniciEkle.aspx.cs",
+              "RelativeToolTip": "exam\\KullaniciEkle.aspx.cs",
+              "ViewState": "AgIAAHAAAAAAAAAAAAD4v4kAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T07:47:57.4Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Main.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Main.aspx.cs",
-              "RelativeDocumentMoniker": "exam\\Main.aspx.cs",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Main.aspx.cs",
-              "RelativeToolTip": "exam\\Main.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T11:28:38.957Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "KullaniciEkle.aspx",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\KullaniciEkle.aspx",
+              "DocumentMoniker": "C:\\Projeler\\exam\\ASPXExam\\exam\\KullaniciEkle.aspx",
               "RelativeDocumentMoniker": "exam\\KullaniciEkle.aspx",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\KullaniciEkle.aspx",
+              "ToolTip": "C:\\Projeler\\exam\\ASPXExam\\exam\\KullaniciEkle.aspx",
               "RelativeToolTip": "exam\\KullaniciEkle.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-03-24T07:29:19.645Z",
+              "WhenOpened": "2025-03-25T07:47:55.044Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "KullaniciEkle.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\KullaniciEkle.aspx.cs",
-              "RelativeDocumentMoniker": "exam\\KullaniciEkle.aspx.cs",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\KullaniciEkle.aspx.cs",
-              "RelativeToolTip": "exam\\KullaniciEkle.aspx.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAYwIQAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Login.aspx.cs",
+              "DocumentMoniker": "C:\\Projeler\\exam\\ASPXExam\\exam\\Account\\Login.aspx.cs",
+              "RelativeDocumentMoniker": "exam\\Account\\Login.aspx.cs",
+              "ToolTip": "C:\\Projeler\\exam\\ASPXExam\\exam\\Account\\Login.aspx.cs",
+              "RelativeToolTip": "exam\\Account\\Login.aspx.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAAwGcAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T07:29:35.88Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Site.master",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Site.master",
-              "RelativeDocumentMoniker": "exam\\Site.master",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Site.master",
-              "RelativeToolTip": "exam\\Site.master",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-03-20T06:39:57.274Z",
+              "WhenOpened": "2025-03-25T06:39:17.411Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Site.master.cs",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Site.master.cs",
-              "RelativeDocumentMoniker": "exam\\Site.master.cs",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Site.master.cs",
-              "RelativeToolTip": "exam\\Site.master.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAswGAAAABgAAAAAAAAAA==",
+              "Title": "Gridview.aspx.cs",
+              "DocumentMoniker": "C:\\Projeler\\exam\\ASPXExam\\exam\\Gridview.aspx.cs",
+              "RelativeDocumentMoniker": "exam\\Gridview.aspx.cs",
+              "ToolTip": "C:\\Projeler\\exam\\ASPXExam\\exam\\Gridview.aspx.cs",
+              "RelativeToolTip": "exam\\Gridview.aspx.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAQwFYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T07:20:34.839Z",
+              "WhenOpened": "2025-03-25T06:24:51.414Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Web.config",
-              "DocumentMoniker": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Web.config",
-              "RelativeDocumentMoniker": "exam\\Web.config",
-              "ToolTip": "C:\\Users\\Arda\\source\\repos\\ASPXExam\\exam\\Web.config",
-              "RelativeToolTip": "exam\\Web.config",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAYwIYAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-03-21T08:10:32.104Z",
+              "DocumentIndex": 2,
+              "Title": "SirketSecme.aspx.cs",
+              "DocumentMoniker": "C:\\Projeler\\exam\\ASPXExam\\exam\\Account\\SirketSecme.aspx.cs",
+              "RelativeDocumentMoniker": "exam\\Account\\SirketSecme.aspx.cs",
+              "ToolTip": "C:\\Projeler\\exam\\ASPXExam\\exam\\Account\\SirketSecme.aspx.cs",
+              "RelativeToolTip": "exam\\Account\\SirketSecme.aspx.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAgwD8AAAB6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T13:27:53.888Z",
               "EditorCaption": ""
             }
           ]
