@@ -35,6 +35,8 @@
     <!-- Gridview -->
     <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="true" Width="100%" 
         KeyFieldName="FATIRS_NO" Theme="MaterialCompact" OnPageIndexChanged="ASPxGridView1_PageIndexChanged">
+
+        
         <SettingsBehavior ColumnMoveMode="ThroughHierarchy" />
         <Settings ShowFilterRow="true" ShowFilterRowMenu="true" />
         <Settings ShowHeaderFilterButton="true" />
@@ -46,8 +48,10 @@
         </SettingsContextMenu>
         <SettingsResizing ColumnResizeMode="Control" Visualization="Postponed" />
         <Styles>
+
             <FixedColumn BackColor="LightBlue"></FixedColumn>
         </Styles>
+       
         <Toolbars>
             <dx:GridViewToolbar>
                 <SettingsAdaptivity Enabled="true" EnableCollapseRootItemsToIcons="true" />
@@ -66,4 +70,6 @@
         </dx:PopupControlContentControl>
     </ContentCollection>
 </dx:ASPxPopupControl>
+   
 </asp:Content>
+

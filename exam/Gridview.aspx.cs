@@ -7,6 +7,8 @@ using DevExpress.Web;
 public partial class Account_Gridview : System.Web.UI.Page
 {
     private string dbName;
+    private string dbLogin = ConfigurationService.dbLogin;
+    private string dbPassword = ConfigurationService.dbPassword;
     protected void Page_Load(object sender, EventArgs e)
     {
        

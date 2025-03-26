@@ -9,10 +9,14 @@ using System.Web.UI;
 
 public partial class Login : System.Web.UI.Page
 {
-    private readonly string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
+     private string dbLogin = ConfigurationService.dbLogin;
+     private string dbPassword = ConfigurationService.dbPassword;
+    string connectionString;
 
     protected void Page_Load(object sender, EventArgs e)
-    {
+    {   
+      connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id="+dbLogin+";Password="+dbPassword+";";
+
     }
 
     private List<string> GetUserReports(int userId)

@@ -9,8 +9,12 @@ using System.Web.UI.WebControls;
 
 public partial class KullaniciEkle : System.Web.UI.Page
 {
+    private string dbLogin = ConfigurationService.dbLogin;
+    private string dbPassword = ConfigurationService.dbPassword;
     protected void Page_Load(object sender, EventArgs e)
     {
+      
+
         // Sadece adminler erişebilir
         if (Session["UserID"] == null || Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
         {
@@ -25,7 +29,7 @@ public partial class KullaniciEkle : System.Web.UI.Page
 
     private void LoadReports()
     {
-        string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
+        string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=" + dbLogin + ";Password=" + dbPassword + ";";
 
         using (SqlConnection con = new SqlConnection(connectionString))
         {
@@ -89,8 +93,8 @@ public partial class KullaniciEkle : System.Web.UI.Page
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 100).Value = username;
                     cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 255).Value = hashedPassword;
                     cmd.Parameters.Add("@IsAdmin", SqlDbType.Bit).Value = isAdmin;
-                    cmd.Parameters.Add("@dbLogin",SqlDbType.NVarChar, 100).Value = "biltekbilisim";
-                    cmd.Parameters.Add("@dbPassword",SqlDbType.NVarChar, 100).Value = "Bilisim20037816";
+                    cmd.Parameters.Add("@dbLogin", SqlDbType.NVarChar, 100).Value = "biltekbilisim";
+                    cmd.Parameters.Add("@dbPassword", SqlDbType.NVarChar, 100).Value = "Bilisim20037816";
                     cmd.Parameters.Add("@ServerName", SqlDbType.NVarChar, 100).Value = adminServerName;
                     cmd.Parameters.Add("@DatabaseName", SqlDbType.NVarChar, 100).Value = adminDatabaseName;
 
@@ -98,8 +102,10 @@ public partial class KullaniciEkle : System.Web.UI.Page
                 }
 
                 // **Seçilen rapor yetkilerini kaydet**
+
                 foreach (ListItem item in cblReports.Items)
                 {
+
                     if (item.Selected)
                     {
                         string insertReportQuery = "INSERT INTO ReportPermissions (UserID, ReportName, CanView) VALUES (@UserID, @ReportName, 1)";
@@ -124,7 +130,7 @@ public partial class KullaniciEkle : System.Web.UI.Page
 
             throw;
         }
-     
+
     }
 
     private string HashPassword(string password)

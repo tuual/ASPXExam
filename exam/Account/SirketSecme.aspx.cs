@@ -8,7 +8,8 @@ using DevExpress.Web.Bootstrap;
 public partial class Account_SirketSecme : System.Web.UI.Page
 {
     String dbname, connectionString, selectQuery;
-
+    private string dbLogin = ConfigurationService.dbLogin;
+    private string dbPassword = ConfigurationService.dbPassword;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["ServerName"] == null && Session["UserID"] == null)
@@ -23,7 +24,7 @@ public partial class Account_SirketSecme : System.Web.UI.Page
             {
               
                 dbname = Session["ServerName"].ToString();
-                connectionString = string.Format("Server={0};Database=BB_TICARI;User Id=biltekbilisim;Password=Bilisim20037816;", dbname);
+                connectionString = string.Format("Server={0};Database=BB_TICARI;User Id="+dbLogin+";Password="+dbPassword+";", dbname);
                 selectQuery = "SELECT SIRKET_ADI FROM dbo.FIRMALAR WHERE DURUM <> 2";
 
                 using (SqlConnection con = new SqlConnection(connectionString))

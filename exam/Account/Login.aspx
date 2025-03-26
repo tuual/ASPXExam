@@ -3,16 +3,15 @@
 <asp:Content ID="MainContent" ContentPlaceHolderID="Content" runat="server">
     <div class="login-container">
         <div class="login-box">
-            <h2 class="text-center">Log In</h2>
-            <p class="text-center">Please enter your username and password.</p>
+            <h2 class="text-center">Mobarch Portal Giriş Paneli</h2>
 
             <div class="form-group">
-                <asp:Label ID="lblUsername" runat="server" AssociatedControlID="tbUserName" Text="Username: "></asp:Label>
+                <asp:Label ID="lblUsername" runat="server" AssociatedControlID="tbUserName" Text="Kullancı Adı: "></asp:Label>
                 <asp:TextBox ID="tbUserName" runat="server" CssClass="form-control" Width="100%" />
             </div>
 
             <div class="form-group">
-                <asp:Label ID="lblPassword" runat="server" AssociatedControlID="tbPassword" Text="Password: "></asp:Label>
+                <asp:Label ID="lblPassword" runat="server" AssociatedControlID="tbPassword" Text="Parola: "></asp:Label>
                 <asp:TextBox ID="tbPassword" runat="server" CssClass="form-control" TextMode="Password" Width="100%" />
             </div>
 
@@ -36,7 +35,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
 
         .login-box {
