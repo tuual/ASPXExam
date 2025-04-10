@@ -18,7 +18,7 @@ public partial class KullaniciEkle : System.Web.UI.Page
         // Sadece adminler erişebilir
         if (Session["UserID"] == null || Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
         {
-            Response.Redirect("~/Account/Login.aspx");
+            Response.Redirect("~/Account/AccessDenied.aspx");
         }
 
         if (!IsPostBack)
@@ -45,7 +45,7 @@ public partial class KullaniciEkle : System.Web.UI.Page
                         string reportName = reader["ReportName"].ToString();
                         cblReports.Items.Add(new ListItem(reportName, reportName));
                     }
-                }
+                }   
             }
         }
     }

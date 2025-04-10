@@ -10,133 +10,184 @@
     <link href="~/Content/Site.css" rel="stylesheet" /> 
     <script type="text/javascript" src="/Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="/Scripts/popper.min.js"></script>
-    <script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
         /* Sidebar */
-        #sidebar {
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: -250px;
-            height: 100vh;
-            background: #f8f9fa;
-            box-shadow: 2px 0px 5px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            transition: all 0.3s ease-in-out;
-            z-index: 1050;
-            padding-top: 60px;
-        }
+#sidebar {
+    width: auto ;
+    position: fixed;
+    top: 50px; /* Navbar yüksekliği kadar aşağıdan başlasın */
+    left: -250px;
+    height: calc(100vh - 50px);
+    background: #f8f9fa;
+    box-shadow: 2px 0px 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    transition: all 0.3s ease-in-out;
+    z-index: 1050;
+    padding: 5px 0px;
+}
 
-        #sidebar.active {
-            left: 0;
-        }
+#sidebar.active {
+    left: 0;
+}
 
-        /* Sidebar açılınca içeriği sağa kaydır */
-        .sidebar-open #main-content {
-            margin-left: 260px;
-        }
+/* Sidebar açılınca içerik kaymasın */
+.sidebar-open #main-content {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease-in-out;
+}
 
-        /* Navbar’ı sidebar’ın üstünde tut */
+/* Sidebar içeriği */
+#sidebar h4 {
+    text-align: center;
+    padding: 15px 10px;
+    margin: 0 0 0px 0;
+    background: #343a40;
+    color: white;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    left: 5%;
+    text-align: center;
+}
+
+/* Mobil görünüm */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 100%;
+        left: -100%;
+    }
+    .user-dropdown
+    {
+         top: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #sidebar.active {
+        left: 0;
+    }
+
+    .sidebar-open #main-content {
+        margin-left: 0;
+    }
+}
+
+
+        /* Navbar */
         #Navbar {
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1100; /* Sidebar’ın üstünde kalması için */
+            z-index: 1100;
             background: #fff;
             box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
         }
 
-        #toggleSidebar {
-            position: absolute;
-            left: 15px;
+        /* User Dropdown */
+        .user-dropdown {
+              position: absolute; /* Fixed position to right side */
             top: 50%;
+            right: 0;
             transform: translateY(-50%);
-            font-size: 22px;
-            background: none;
+        }
+
+        .user-dropdown .dropdown-toggle {
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            color: #333;
-            z-index: 1200;
-            transition: left 0.3s ease-in-out;
-        }
-
-
-        /* Sidebar Açıldığında Buton Hareket Etmesin */
-        .sidebar-open #toggleSidebar {
-            left: 15px;
-        }
-
-        /* Sidebar İçeriği */
-        #sidebar h4 {
-            text-align: center;
-            padding: 15px 10px;
-            margin: 0;
-            background: #343a40;
-            color: white;
-        }
-
-        #reportList a {
-            display: block;
-            padding: 10px 15px;
-            text-decoration: none;
+            padding: 8px 15px;
             font-size: 16px;
-            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
-        #reportList a:hover {
-            background: transparent !important;
-            color: #333 !important;
+        .user-dropdown .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            min-width: 160px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }   
+
+          .dropdown-menu.show {
+       display: block !important;
+       opacity: 1;
+       transform: translateY(0);
+   }
+   
+          .dropdown-menu {
+    right: auto; /* Sağdan hizalamayı kaldır */
+    left: 0; /* Soldan hizala */
+    transform: translateX(-100%); /* Menüyü tamamen sola kaydır */
+}
+
+        .user-dropdown .dropdown-menu a {
+            padding: 10px;
+            display: block;
+            color: #495057;
+            text-decoration: none;
         }
 
-        /* GridView ile Sidebar arasına boşluk ekle */
-        #main-content {
-            padding: 40px;
-            transition: margin-left 0.3s ease-in-out;
+        .user-dropdown .dropdown-menu a:hover {
+            background-color: #f1f1f1;
         }
 
-        /* Mobil görünüm için */
-        @media (max-width: 768px) {
-            #sidebar {
-                width: 100%;
-                left: -100%;
-            }
-            #sidebar.active {
-                left: 0;
-            }
-            .sidebar-open #main-content {
-                margin-left: 0;
-            }
+        .user-dropdown:hover .dropdown-menu {
+            display: block;
         }
+        .btnHover:hover{
+            background-color: #BDBDBD;
+        }
+        
+
+         .animated-dropdown {
+     opacity: 0;
+     transform: translateY(-10px);
+     transition: opacity 0.3s ease, transform 0.3s ease;
+     display: none; /* Başlangıçta gizli */
+ }
+
+ .dropdown.show .animated-dropdown {
+     display: block; /* Görünür yap */
+     opacity: 1;
+     transform: translateY(0);
+ }
+     
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
     
     <!-- NAVBAR -->
-   <nav id="Navbar" runat="server" class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
-    <div class="container">
-        <button id="toggleSidebar" type="button" class="btn btn-dark">&#9776;</button>
-        <div class="d-flex ms-auto">
-            <a class="navbar-brand text-primary fw-bold" href="#">Mobarch</a>
-        </div>
-        <div class="collapse navbar-collapse" id="topMenu">
-            <dx:BootstrapMenu ID="TopMenu" runat="server" AllowSelectItem="true" ShowPopOutImages="True" ItemAutoWidth="true" ClientInstanceName="topMenu" Orientation="Horizontal">
-                <CssClasses Control="top-menu" />
-                <Items>
-                    <dx:BootstrapMenuItem Text="Faturalar" Name="Home" NavigateUrl="Default.aspx"></dx:BootstrapMenuItem>
-                    <dx:BootstrapMenuItem Text="About" Name="About"></dx:BootstrapMenuItem>
-                </Items>
-            </dx:BootstrapMenu>
-            <div class="d-flex ms-auto">
-                <asp:HyperLink ID="lnkUserAdd" runat="server" NavigateUrl="KullaniciEkle.aspx" CssClass="btn btn-success me-3" Visible="false">
-                    Kullanıcı Ekle
-                </asp:HyperLink>
+  <nav id="Navbar" runat="server" class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+    <div class="container-fluid">
+        <!-- Sol taraftaki 3 çizgili buton -->
+        <button id="toggleSidebar" type="button" class="btn btn-dark me-2">&#9776;</button>
 
-                <asp:Button ID="btnLogout" runat="server" Text="Çıkış Yap" CssClass="btn btn-danger" OnClick="btnLogout_Click" />
-            </div>
-        </div>
+        <!-- Sağ taraftaki kullanıcı menüsü -->
+       <div class="ms-auto dropdown">
+    <button class="btn btn-primary dropdown-toggle w-100" type="button" id="userDropdown" aria-expanded="false">
+        Ayarlar
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end p-3 animated-dropdown" aria-labelledby="userDropdown">
+        <li><asp:Button ID="Button1" runat="server" Text="Şirket Bilgileri" CssClass="btn btn-white w-100 btnHover" /></li>
+        <li><asp:Button ID="lnkUserAdd" OnClick="lnkUserAdd_Click" runat="server" Text="Kullanıcı Ekle" CssClass="btn btn-white w-100 btnHover" /></li>
+        <li><asp:Button ID="Button2" runat="server" Text="Şirket Değiştir" CssClass="btn btn-white w-100 btnHover" /></li>
+    </ul>
+</div>
     </div>
 </nav>
+
 
     <!-- SIDEBAR -->
     <div id="sidebar">
@@ -144,6 +195,10 @@
         <ul id="reportList" class="list-group">
             <asp:Literal ID="ltReports" runat="server"></asp:Literal>
         </ul>
+
+        <div class="sidebar-footer">
+            <asp:Button ID="btnLogout" runat="server" Text="Çıkış Yap" CssClass="btn btn-danger w-100 mb-2 text-white" OnClick="btnLogout_Click" />
+        </div>
     </div>
 
     <div id="main-content">
@@ -169,9 +224,30 @@
             }
         });
 
-        window.onload = function () {
-            document.body.classList.remove("sidebar-open");
-        };
+
+     
+
     </script>
+
+    <script>
+        document.getElementById("userDropdown").addEventListener("click", function () {
+            console.log("Dropdown button clicked"); // Bu satır tetikleniyor mu kontrol edin
+            const dropdownMenu = this.nextElementSibling;
+
+            if (dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+                dropdownMenu.classList.remove("show");
+            } else {
+                dropdownMenu.style.display = "block";
+                setTimeout(() => dropdownMenu.classList.add("show"), 10); // Animasyonu tetikle
+            }
+        });
+
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

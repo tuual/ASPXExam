@@ -1,8 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="KullaniciEkle.aspx.cs" Inherits="KullaniciEkle" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="KullaniciEkle.aspx.cs" Inherits="KullaniciEkle" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="Content" runat="server">
 <!DOCTYPE html>
 <html lang="tr">
-<head runat="server">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Yeni Kullanıcı Ekle</title>
@@ -56,3 +56,4 @@
     </form>
 </body>
 </html>
+    </asp:Content>

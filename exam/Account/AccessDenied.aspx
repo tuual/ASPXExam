@@ -2,4 +2,5 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server"> 
     <h1 style="color: red;">Bu Sayfaya Yetkiniz Bulunmamaktadır.</h1>
+  
 </asp:Content>

@@ -16,16 +16,19 @@ public partial class Account_SirketSecme : System.Web.UI.Page
         {
             Response.Redirect("~/Account/Login.aspx");
             return;
-        }else
+        }
+
         {
 
        
             try
             {
-              
                 dbname = Session["ServerName"].ToString();
                 connectionString = string.Format("Server={0};Database=BB_TICARI;User Id="+dbLogin+";Password="+dbPassword+";", dbname);
                 selectQuery = "SELECT SIRKET_ADI FROM dbo.FIRMALAR WHERE DURUM <> 2";
+                string userid = Session["UserID"].ToString();
+                string servername = Session["ServerName"].ToString();
+                MsgBox msg = new MsgBox(userid + ' ' + servername, this.Page, this);
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {

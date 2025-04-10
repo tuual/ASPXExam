@@ -7,7 +7,7 @@
 
             <div class="form-group">
                 <asp:Label ID="lblUsername" runat="server" Text="Şirket: "></asp:Label>
-                <dx:BootstrapComboBox ID="cbSirketSec" runat="server" ></dx:BootstrapComboBox>
+                <dx:BootstrapComboBox ID="cbSirketSec" runat="server" AutoPostBack="true" DropDownStyle="DropDownList" NullText="Şirket Seçiniz" />
             </div>
 
          

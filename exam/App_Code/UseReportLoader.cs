@@ -8,7 +8,6 @@ using System.Web;
 
 /// <summary>
 /// Summary description for UseReportLoader
-/// </summary>
 public class UseReportLoader
 {
     private string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
@@ -36,26 +35,74 @@ public class UseReportLoader
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    string reportsHtml = "";
+                    // Raporları gruplara ayırıyoruz
+                    Dictionary<string, List<KeyValuePair<string, string>>> groupedReports = new Dictionary<string, List<KeyValuePair<string, string>>>();
+
+                    // Grupları tanımla (sabit tanım, dinamik yapmak istersen ayrıca bakarız)
+                    groupedReports["Finans"] = new List<KeyValuePair<string, string>>();
+                    groupedReports["Stok"] = new List<KeyValuePair<string, string>>();
+                    groupedReports["Diğer"] = new List<KeyValuePair<string, string>>();
+
                     while (reader.Read())
                     {
                         string reportName = reader["ReportName"].ToString();
                         string reportUrl = "";
-
-                        // **Hangi rapor hangi sayfaya gidecek?**
+                        
+                        // Report adlarına göre sayfa atamaları
                         if (reportName == "Müşteri Hareketleri")
-                            reportUrl = "Gridview.aspx";
-                        else if (reportName == "Fatura Raporu")
-                            reportUrl = "Raporlar/FaturaGrid.aspx";
-
-                        // **Eğer link boşsa, hata mesajı ekleyelim**
-                        if (string.IsNullOrEmpty(reportUrl))
                         {
-                            Debug.WriteLine("UYARI: " + reportName + " için bir URL atanmadı!");
+                            reportUrl = "Gridview.aspx";
+                            groupedReports["Finans"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
+                        }
+                        else if (reportName == "Fatura Raporu")
+                        {
+                            reportUrl = "Raporlar/FaturaGrid.aspx";
+                            groupedReports["Finans"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
+                        }
+                        else if (reportName == "Stok Durumu")
+                        {
+                            reportUrl = "Raporlar/StokDurumu.aspx";
+                            groupedReports["Stok"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
+                        }
+                        else
+                        {
+                            reportUrl = "#"; // bilinmeyen rapor
+                            groupedReports["Diğer"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
+                        }
+                    }
+
+                    // Bootstrap accordion HTML'i
+                    string reportsHtml = "<div class='accordion' id='reportAccordion'>";
+                    int index = 0;
+
+                    foreach (var group in groupedReports)
+                    {
+                        if (group.Value.Count == 0)
+                            continue;
+
+                        string collapseId = "collapse" + index;
+                        string headingId = "heading" + index;
+
+                        reportsHtml += "<div class='accordion-item'>";
+                        reportsHtml += "<h2 class='accordion-header' id='" + headingId + "'>";
+                        reportsHtml += "<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#" + collapseId + "' aria-expanded='false' aria-controls='" + collapseId + "'>";
+                        reportsHtml += group.Key + " Raporları";
+                        reportsHtml += "</button>";
+                        reportsHtml += "</h2>";
+
+                        reportsHtml += "<div id='" + collapseId + "' class='accordion-collapse collapse' aria-labelledby='" + headingId + "' data-bs-parent='#reportAccordion'>";
+                        reportsHtml += "<div class='accordion-body p-0'>";
+                        reportsHtml += "<ul class='list-group list-group-flush'>";
+
+                        foreach (var report in group.Value)
+                        {
+                            reportsHtml += "<li class='list-group-item'><a href='" + report.Value + "'>" + report.Key + "</a></li>";
                         }
 
-                        reportsHtml += "<li class='list-group-item'><a href='" + reportUrl + "'>" + reportName + "</a></li>";
+                        reportsHtml += "</ul></div></div></div>";
+                        index++;
                     }
+                    reportsHtml += "</div>"; // accordion kapanışı
 
                     return reportsHtml;
                 }
@@ -64,7 +111,9 @@ public class UseReportLoader
     }
 
 
-    public bool HasAccessToReport(int userId, string reportName)
+
+
+public bool HasAccessToReport(int userId, string reportName)
     {
         using (SqlConnection con = new SqlConnection(connectionString))
         {

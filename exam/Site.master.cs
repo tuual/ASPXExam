@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Diagnostics;
+using DevExpress.Xpo.DB;
+using DevExpress.Web.ASPxRichEdit.Forms;
+using System.Web.Routing;
 
 public partial class SiteMaster : System.Web.UI.MasterPage
 {
@@ -14,7 +17,6 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         if (Session["UserID"] == null && Session["ServerName"] == null && Session["SecilenSirket"] == null)
         {
             string currentPage = Request.Url.AbsolutePath.ToLower();
-
             // **Eğer zaten Login sayfasındaysa tekrar yönlendirme yapma**
             if (!currentPage.Contains("login.aspx"))
             {
@@ -28,8 +30,12 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         {
             int userId = Convert.ToInt32(Session["UserID"]);
             bool isAdmin = Session["IsAdmin"] != null && Convert.ToBoolean(Session["IsAdmin"]);
-
-            if (isAdmin && lnkUserAdd != null)
+                    
+            if (isAdmin == false)
+            {
+                lnkUserAdd.Visible = false;
+            }
+            else
             {
                 lnkUserAdd.Visible = true;
             }
@@ -41,7 +47,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         }
         navBarGizleme();
     }
-
+  
 
     private void navBarGizleme()
     {
@@ -104,5 +110,10 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         Session.Clear();
         Session.Abandon();
         Response.Redirect("~/Account/Login.aspx");
+    }
+
+    protected void lnkUserAdd_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("KullaniciEkle.aspx");
     }
 }
