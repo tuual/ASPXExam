@@ -28,7 +28,6 @@ public partial class Account_SirketSecme : System.Web.UI.Page
                 selectQuery = "SELECT SIRKET_ADI FROM dbo.FIRMALAR WHERE DURUM <> 2";
                 string userid = Session["UserID"].ToString();
                 string servername = Session["ServerName"].ToString();
-                MsgBox msg = new MsgBox(userid + ' ' + servername, this.Page, this);
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {

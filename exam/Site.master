@@ -126,10 +126,20 @@
    }
    
           .dropdown-menu {
-    right: auto; /* Sağdan hizalamayı kaldır */
-    left: 0; /* Soldan hizala */
-    transform: translateX(-100%); /* Menüyü tamamen sola kaydır */
+    position: absolute;
+    right: 0;
+    left: auto; /* sol kaymayı kaldır */
+    top: 100%;
+    min-width: 180px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 9999;
+    transform: translateY(0); /* eski sola taşıma kaldırıldı */
 }
+
 
         .user-dropdown .dropdown-menu a {
             padding: 10px;
@@ -175,11 +185,11 @@
         <button id="toggleSidebar" type="button" class="btn btn-dark me-2">&#9776;</button>
 
         <!-- Sağ taraftaki kullanıcı menüsü -->
-       <div class="ms-auto dropdown">
-    <button class="btn btn-primary dropdown-toggle w-100" type="button" id="userDropdown" aria-expanded="false">
+       <div class="dropdown ms-auto">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" aria-expanded="false">
         Ayarlar
     </button>
-    <ul class="dropdown-menu dropdown-menu-end p-3 animated-dropdown" aria-labelledby="userDropdown">
+    <ul class="dropdown-menu dropdown-menu-end p-3 animated-dropdown" aria-labelledby="userDropdown" runat="server">
         <li><asp:Button ID="Button1" runat="server" Text="Şirket Bilgileri" CssClass="btn btn-white w-100 btnHover" /></li>
         <li><asp:Button ID="lnkUserAdd" OnClick="lnkUserAdd_Click" runat="server" Text="Kullanıcı Ekle" CssClass="btn btn-white w-100 btnHover" /></li>
         <li><asp:Button ID="Button2" runat="server" Text="Şirket Değiştir" CssClass="btn btn-white w-100 btnHover" /></li>
