@@ -86,7 +86,7 @@ public class UseReportLoader
                         reportsHtml += "<div class='accordion-item'>";
                         reportsHtml += "<h2 class='accordion-header' id='" + headingId + "'>";
                         reportsHtml += "<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#" + collapseId + "' aria-expanded='false' aria-controls='" + collapseId + "'>";
-                        reportsHtml += group.Key + " Raporları";
+                        reportsHtml += "<span class='tree-toggle-arrow'>▸</span> " + group.Key + " Raporları";
                         reportsHtml += "</button>";
                         reportsHtml += "</h2>";
 
@@ -96,7 +96,7 @@ public class UseReportLoader
 
                         foreach (var report in group.Value)
                         {
-                            reportsHtml += "<li class='list-group-item'><a href='" + report.Value + "'>" + report.Key + "</a></li>";
+                            reportsHtml += "<li class='list-group-item tree-child'><span class='tree-child-arrow'>↓</span> <a href='" + report.Value + "'>" + report.Key + "</a></li>";
                         }
 
                         reportsHtml += "</ul></div></div></div>";

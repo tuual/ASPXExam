@@ -8,9 +8,24 @@
     <title>Yeni Kullanıcı Ekle</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet">
+
+
+    <style>
+        .cbCss{
+            width:200px;
+        }
+        .cbCss input[type="checkbox"]{
+            margin-top:7px;
+            border-radius: 9px;
+            background-color:#0B5ED7;
+            width:30px;
+
+            height:14px;
+        }
+    </style>
 </head>
+
 <body>
-    <form id="form1" runat="server">
         <div class="container mt-5">
             <h2 class="text-center">Yeni Kullanıcı Ekle</h2>
 
@@ -38,8 +53,8 @@
 
                 <!-- Rapor Yetkileri Seçimi -->
                 <div class="mb-3">
-                    <label class="form-label">Rapor Yetkileri:</label>
-                    <asp:CheckBoxList ID="cblReports" runat="server" CssClass="form-check">
+                    <label class="control control-checkbox">Rapor Yetkileri:</label>
+                    <asp:CheckBoxList ID="cblReports" runat="server" CssClass="cbCss">
                     </asp:CheckBoxList>
                 </div>
 
@@ -53,7 +68,6 @@
                 </div>
             </div>
         </div>
-    </form>
 </body>
 </html>
     </asp:Content>

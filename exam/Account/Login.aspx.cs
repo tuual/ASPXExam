@@ -75,7 +75,7 @@ public partial class Login : System.Web.UI.Page
                             string storedHash = reader["PasswordHash"].ToString(); // Veritabanındaki hash
 
                             // Kullanıcının girdiği şifre ile hash karşılaştır
-                            if (!VerifyPassword(password, storedHash))
+                            if (password != storedHash)
                             {
                                 lblMessage.Text = "Hatalı kullanıcı adı veya şifre!";
                                 lblMessage.ForeColor = System.Drawing.Color.Red;

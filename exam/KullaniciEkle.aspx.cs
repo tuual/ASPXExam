@@ -74,7 +74,7 @@ public partial class KullaniciEkle : System.Web.UI.Page
             return;
         }
 
-        string hashedPassword = HashPassword(password);
+      //  string hashedPassword = HashPassword(password);
         string connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id=biltekbilisim;Password=Bilisim20037816;";
 
         int newUserId;
@@ -91,7 +91,7 @@ public partial class KullaniciEkle : System.Web.UI.Page
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 100).Value = username;
-                    cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 255).Value = hashedPassword;
+                    cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 255).Value = password;
                     cmd.Parameters.Add("@IsAdmin", SqlDbType.Bit).Value = isAdmin;
                     cmd.Parameters.Add("@dbLogin", SqlDbType.NVarChar, 100).Value = "biltekbilisim";
                     cmd.Parameters.Add("@dbPassword", SqlDbType.NVarChar, 100).Value = "Bilisim20037816";
@@ -150,5 +150,6 @@ public partial class KullaniciEkle : System.Web.UI.Page
 
     protected void ddlIsAdmin_SelectedIndexChanged(object sender, EventArgs e)
     {
+     
     }
 }
