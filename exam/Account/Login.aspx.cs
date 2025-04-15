@@ -12,7 +12,7 @@ public partial class Login : System.Web.UI.Page
      private string dbLogin = ConfigurationService.dbLogin;
      private string dbPassword = ConfigurationService.dbPassword;
     string connectionString;
-
+    private MsgBox msgBox;
     protected void Page_Load(object sender, EventArgs e)
     {   
       connectionString = "Server=BLTTUAL;Database=Kullanicilar;User Id="+dbLogin+";Password="+dbPassword+";";
@@ -61,6 +61,7 @@ public partial class Login : System.Web.UI.Page
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+           
                 con.Open();
                 string query = "SELECT ID, ServerName, DbLogin, DbPassword, DatabaseName, IsAdmin, PasswordHash FROM Users WHERE Username = @Username";
 
@@ -121,14 +122,18 @@ public partial class Login : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
+        catch (SqlException ex)
         {
+            SqlExceptionHandler sqlExceptionHandler = new SqlExceptionHandler(ex, this.Page);
+
+
             lblMessage.Text = "Bir hata oluştu: " + ex.Message;
             lblMessage.ForeColor = System.Drawing.Color.Red;
         }
     }
 
-    private bool VerifyPassword(string enteredPassword, string storedHash)
+    // Şifre Hashlama !kullanılmıyor
+    /*private bool VerifyPassword(string enteredPassword, string storedHash)
     {
         using (SHA256 sha256 = SHA256.Create())
         {
@@ -137,5 +142,5 @@ public partial class Login : System.Web.UI.Page
             string enteredHash = Convert.ToBase64String(hash);
             return enteredHash == storedHash; // Girilen şifreyi hashleyip karşılaştır
         }
-    }
+    }*/
 }
