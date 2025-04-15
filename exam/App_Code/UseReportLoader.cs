@@ -35,10 +35,8 @@ public class UseReportLoader
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    // Raporları gruplara ayırıyoruz
                     Dictionary<string, List<KeyValuePair<string, string>>> groupedReports = new Dictionary<string, List<KeyValuePair<string, string>>>();
 
-                    // Grupları tanımla (sabit tanım, dinamik yapmak istersen ayrıca bakarız)
                     groupedReports["Finans"] = new List<KeyValuePair<string, string>>();
                     groupedReports["Stok"] = new List<KeyValuePair<string, string>>();
                     groupedReports["Diğer"] = new List<KeyValuePair<string, string>>();
@@ -47,11 +45,10 @@ public class UseReportLoader
                     {
                         string reportName = reader["ReportName"].ToString();
                         string reportUrl = "";
-                        
-                        // Report adlarına göre sayfa atamaları
+
                         if (reportName == "Müşteri Hareketleri")
                         {
-                            reportUrl = "Gridview.aspx";
+                            reportUrl = "Raporlar/Gridview.aspx";
                             groupedReports["Finans"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
                         }
                         else if (reportName == "Fatura Raporu")
@@ -66,12 +63,19 @@ public class UseReportLoader
                         }
                         else
                         {
-                            reportUrl = "#"; // bilinmeyen rapor
+                            reportUrl = "#";
                             groupedReports["Diğer"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
                         }
                     }
 
-                    // Bootstrap accordion HTML'i
+                    // Lineicon ikonları kategori adlarıyla eşleşiyor
+                    Dictionary<string, string> categoryIcons = new Dictionary<string, string>()
+                {
+                    { "Finans", "lni-credit-cards" },
+                    { "Stok", "lni-dropbox" },
+                    { "Diğer", "lni-archive" }
+                };
+
                     string reportsHtml = "<div class='accordion' id='reportAccordion'>";
                     int index = 0;
 
@@ -83,10 +87,15 @@ public class UseReportLoader
                         string collapseId = "collapse" + index;
                         string headingId = "heading" + index;
 
+                        string iconClass = categoryIcons.ContainsKey(group.Key) ? categoryIcons[group.Key] : "";
+
                         reportsHtml += "<div class='accordion-item'>";
                         reportsHtml += "<h2 class='accordion-header' id='" + headingId + "'>";
                         reportsHtml += "<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#" + collapseId + "' aria-expanded='false' aria-controls='" + collapseId + "'>";
-                        reportsHtml += "<span class='tree-toggle-arrow'>▸</span> " + group.Key + " Raporları";
+
+                        // İKON + KATEGORİ ADI
+                        reportsHtml += "<i class='lni " + iconClass + " me-2'></i> " + group.Key + " Raporları";
+
                         reportsHtml += "</button>";
                         reportsHtml += "</h2>";
 
@@ -102,8 +111,8 @@ public class UseReportLoader
                         reportsHtml += "</ul></div></div></div>";
                         index++;
                     }
-                    reportsHtml += "</div>"; // accordion kapanışı
 
+                    reportsHtml += "</div>";
                     return reportsHtml;
                 }
             }
@@ -113,7 +122,7 @@ public class UseReportLoader
 
 
 
-public bool HasAccessToReport(int userId, string reportName)
+    public bool HasAccessToReport(int userId, string reportName)
     {
         using (SqlConnection con = new SqlConnection(connectionString))
         {
