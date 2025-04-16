@@ -175,36 +175,52 @@
        transform: translateY(0);
    }
    
-          .dropdown-menu {
-    position: absolute;
-    right: 0;
-    left: auto; /* sol kaymayı kaldır */
-    top: 100%;
-    min-width: 180px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    display: none;
-    z-index: 9999;
-    transform: translateY(0); /* eski sola taşıma kaldırıldı */
+          /* Yeni: Küçük, yuvarlak ikon buton */
+.icon-button {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
 }
 
+.icon-button:hover {
+    background-color: #e9ecef;
+}
 
-        .user-dropdown .dropdown-menu a {
-            padding: 10px;
-            display: block;
-            color: #495057;
-            text-decoration: none;
-        }
+/* Dropdown menü sağa taşmasın */
+.dropdown-menu {
+    right: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    margin-top: 5px;
+}
 
-        .user-dropdown .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
+.dropdown-menu .dropdown-item {
+    font-size: 14px;
+    padding: 10px 15px;
+    color: #212529;
+    transition: background-color 0.2s;
+}
 
-        .user-dropdown:hover .dropdown-menu {
-            display: block;
-        }
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f1f1f1;
+    color: #0d6efd;
+}
+
+.btn-outline-secondary {
+    border-color: #ced4da;
+    color: #0e2238;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #e9ecef;
+}
+
         .btnHover:hover{
             background-color: #BDBDBD;
         }
@@ -222,32 +238,29 @@
      opacity: 1;
      transform: translateY(0);
  }
-    
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" >
     
     <!-- NAVBAR -->
   <nav id="Navbar" runat="server" class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
     <div class="container-fluid">
         <!-- Sol taraftaki 3 çizgili buton -->
         <button id="toggleSidebar" type="button" class="btn btn-dark me-2">&#9776;</button>
-
+        </div>
         <!-- Sağ taraftaki kullanıcı menüsü -->
      <div class="dropdown ms-auto">
-    <button class="btn btn-white" type="button" id="userDropdown" aria-expanded="false">
-        <svg id="userDropdown" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0e2238" class="bi bi-gear" viewBox="0 0 16 16">
-  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
-  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
-</svg>    </button>
-    <ul class="dropdown-menu dropdown-menu-end p-3 animated-dropdown" aria-labelledby="userDropdown" runat="server">
-        <li><asp:Button ID="Button1" runat="server" Text="Şirket Bilgileri" CssClass="btn btn-white w-100 btnHover" /></li>
-        <li><asp:Button ID="lnkUserAdd" OnClick="lnkUserAdd_Click" runat="server" Text="Kullanıcı Ekle" CssClass="btn btn-white w-100 btnHover" /></li>
-        <li><asp:Button ID="Button2" runat="server" Text="Şirket Değiştir" CssClass="btn btn-white w-100 btnHover" /></li>
-    </ul>
+  <button class="btn icon-button" type="button" id="userDropdown" aria-expanded="false">
+    <i class="lni lni-cog fs-5"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end animated-dropdown" aria-labelledby="userDropdown" runat="server">
+    <li><asp:LinkButton ID="btnCompanyInfo" runat="server" CssClass="dropdown-item" Text="Şirket Bilgileri" /></li>
+    <li><asp:LinkButton ID="lnkUserAdd" runat="server" CssClass="dropdown-item" Text="Kullanıcı Ekle" OnClick="lnkUserAdd_Click" /></li>
+    <li><asp:LinkButton ID="btnSwitchCompany" runat="server" CssClass="dropdown-item" Text="Şirket Değiştir" /></li>
+    <li><asp:Button ID="Button1" runat="server" Text="Çıkış Yap" CssClass="dropdown-item text-danger" OnClick="btnLogout_Click" /></li>
+  </ul>
 </div>
-
 </nav>
 
 
@@ -258,9 +271,9 @@
             <asp:Literal ID="ltReports" runat="server"></asp:Literal>
         </ul>
 
-        <div class="sidebar-footer">
+<!--        <div class="sidebar-footer">
             <asp:Button ID="btnLogout" runat="server" Text="Çıkış Yap" CssClass="btn btn-danger w-100 mb-2 text-white" OnClick="btnLogout_Click" />
-        </div>
+       </div> -->
     </div>
 
     <div id="main-content">

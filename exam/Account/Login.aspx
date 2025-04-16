@@ -2,9 +2,9 @@
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="Content" runat="server">
     <div class="login-container">
-        <div class="login-box">
-            <h2 class="text-center">Mobarch Portal Giriş Paneli</h2>
-
+    <div class="login-box">
+        <h2 class="text-center">Mobarch Portal Giriş Paneli</h2>
+        <asp:Panel ID="pnlLogin" runat="server" DefaultButton="btnLogin">
             <div class="form-group">
                 <asp:Label ID="lblUsername" runat="server" AssociatedControlID="tbUserName" Text="Kullancı Adı: "></asp:Label>
                 <asp:TextBox ID="tbUserName" runat="server" CssClass="form-control" Width="100%" />
@@ -16,16 +16,18 @@
             </div>
 
             <div class="text-center mt-3">
-                <asp:Button ID="btnLogin" runat="server" Text="Giriş Yap" CssClass="btn btn-primary btn-block" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnLogin" runat="server" Text="Giriş Yap" CssClass="btn btn-primary btn-block" OnClick="btnLogin_Click" UseSubmitBehavior="true" />
             </div>
 
             <div class="text-center mt-2">
                 <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
             </div>
+        </asp:Panel>
 
-        </div>
     </div>
+</div>
 
+        
     <style>
         body {
             background-color: #f8f9fa;
