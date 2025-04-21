@@ -8,10 +8,9 @@
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                LoadCharts();
-            }
+           
+               LoadCharts();
+            
         }
 
         protected void btnTarih_Click(object sender, EventArgs e)
@@ -83,124 +82,126 @@
         private string GetQuery1()
         {
             return @"
-                   SELECT [Belge Tipi], COUNT(*) AS ToplamAdet
-            FROM (
-    SELECT
-    CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'
-    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Müşteri Siparişi' 
-    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası' 
-    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 4 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'G' THEN 'Alış İrsaliyesi'
-    WHEN TSH.STHAR_FTIRSIP = 0 AND TSH.STHAR_HTUR = 'K' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Fişi'
-    WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade İrsaliyesi (Taşıma)'
+                     SELECT [Stok Adı], SUM([Çıkış Miktar]) AS ToplamCikis, SUM([Giriş Miktar]) AS ToplamGiris
+        FROM (
+SELECT
+CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'
+WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'
+WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası'
+WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Müşteri Siparişi' 
+WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası' 
+WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade Faturası'
+WHEN TSH.STHAR_FTIRSIP = 4 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'G' THEN 'Alış İrsaliyesi'
+WHEN TSH.STHAR_FTIRSIP = 0 AND TSH.STHAR_HTUR = 'K' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Fişi'
+WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade İrsaliyesi (Taşıma)'
 
-    ELSE 'Diğer'
-    END AS 'Belge Tipi',
-    TSH.FISNO AS 'Belge Numarası',
-    TSH.STOK_KODU AS 'Stok Kodu', TS.STOK_ADI AS 'Stok Adı',
-    CASE
-    WHEN TSH.STHAR_GCKOD = 'C' THEN TSH.STHAR_GCMIK 
-    ELSE 0 
-    END AS 'Çıkış Miktar',
-    CASE
-    WHEN TSH.STHAR_GCKOD = 'G' THEN TSH.STHAR_GCMIK 
-    ELSE 0 
-    END AS 'Giriş Miktar',
-    TSH.STHAR_NF AS 'Stok Net Fiyat',
-    TSH.STHAR_BF AS 'Stok Birim Fiyat',
-    TSH.DEPO_KODU AS 'İşlem Deposu',
-    TSH.STHAR_TARIH TARIH
+ELSE 'Diğer'
+END AS 'Belge Tipi',
+TSH.FISNO AS 'Belge Numarası',
+TSH.STOK_KODU AS 'Stok Kodu', TS.STOK_ADI AS 'Stok Adı',
+CASE
+WHEN TSH.STHAR_GCKOD = 'C' THEN TSH.STHAR_GCMIK 
+ELSE 0 
+END AS 'Çıkış Miktar',
+CASE
+WHEN TSH.STHAR_GCKOD = 'G' THEN TSH.STHAR_GCMIK 
+ELSE 0 
+END AS 'Giriş Miktar',
+TSH.STHAR_NF AS 'Stok Net Fiyat',
+TSH.STHAR_BF AS 'Stok Birim Fiyat',
+TSH.DEPO_KODU AS 'İşlem Deposu',
+TSH.STHAR_TARIH TARIH
 
-    FROM dbo.tStokMasterHareket TSH
-    LEFT JOIN dbo.tStokMaster TS
-    ON TS.STOK_KODU = TSH.STOK_KODU
-            ) AS AltSorgu
-            WHERE AltSorgu.TARIH BETWEEN @date1 AND @date2
-            GROUP BY [Belge Tipi]";
+
+FROM dbo.tStokMasterHareket TSH
+LEFT JOIN dbo.tStokMaster TS
+ON TS.STOK_KODU = TSH.STOK_KODU
+        ) AS AltSorgu
+        WHERE AltSorgu.TARIH BETWEEN '2024-01-01' AND '2025-01-01' AND AltSorgu.[Stok Adı] IS NOT NULL
+        GROUP BY [Stok Adı]";
         }
 
         private string GetQuery2()
         {
             return @"
-            SELECT [Stok Adı], SUM([Çıkış Miktar]) AS ToplamCikis
-            FROM (
-    SELECT
-    CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'
-    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Müşteri Siparişi' 
-    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası' 
-    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 4 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'G' THEN 'Alış İrsaliyesi'
-    WHEN TSH.STHAR_FTIRSIP = 0 AND TSH.STHAR_HTUR = 'K' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Fişi'
-    WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade İrsaliyesi (Taşıma)'
+                SELECT [Stok Adı], SUM([Çıkış Miktar]) AS ToplamCikis, SUM([Giriş Miktar]) AS ToplamGiris
+        FROM (
+SELECT
+CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'
+WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'
+WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası'
+WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Müşteri Siparişi' 
+WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası' 
+WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade Faturası'
+WHEN TSH.STHAR_FTIRSIP = 4 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'G' THEN 'Alış İrsaliyesi'
+WHEN TSH.STHAR_FTIRSIP = 0 AND TSH.STHAR_HTUR = 'K' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Fişi'
+WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade İrsaliyesi (Taşıma)'
 
-    ELSE 'Diğer'
-    END AS 'Belge Tipi',
-    TSH.FISNO AS 'Belge Numarası',
-    TSH.STOK_KODU AS 'Stok Kodu', TS.STOK_ADI AS 'Stok Adı',
-    CASE
-    WHEN TSH.STHAR_GCKOD = 'C' THEN TSH.STHAR_GCMIK 
-    ELSE 0 
-    END AS 'Çıkış Miktar',
-    CASE
-    WHEN TSH.STHAR_GCKOD = 'G' THEN TSH.STHAR_GCMIK 
-    ELSE 0 
-    END AS 'Giriş Miktar',
-    TSH.STHAR_NF AS 'Stok Net Fiyat',
-    TSH.STHAR_BF AS 'Stok Birim Fiyat',
-    TSH.DEPO_KODU AS 'İşlem Deposu',
-    TSH.STHAR_TARIH TARIH
+ELSE 'Diğer'
+END AS 'Belge Tipi',
+TSH.FISNO AS 'Belge Numarası',
+TSH.STOK_KODU AS 'Stok Kodu', TS.STOK_ADI AS 'Stok Adı',
+CASE
+WHEN TSH.STHAR_GCKOD = 'C' THEN TSH.STHAR_GCMIK 
+ELSE 0 
+END AS 'Çıkış Miktar',
+CASE
+WHEN TSH.STHAR_GCKOD = 'G' THEN TSH.STHAR_GCMIK 
+ELSE 0 
+END AS 'Giriş Miktar',
+TSH.STHAR_NF AS 'Stok Net Fiyat',
+TSH.STHAR_BF AS 'Stok Birim Fiyat',
+TSH.DEPO_KODU AS 'İşlem Deposu',
+TSH.STHAR_TARIH TARIH
 
-    FROM dbo.tStokMasterHareket TSH
-    LEFT JOIN dbo.tStokMaster TS
-    ON TS.STOK_KODU = TSH.STOK_KODU
-            ) AS AltSorgu
-            WHERE AltSorgu.TARIH BETWEEN @date1 AND @date2
-            GROUP BY [Stok Adı]";
+
+FROM dbo.tStokMasterHareket TSH
+LEFT JOIN dbo.tStokMaster TS
+ON TS.STOK_KODU = TSH.STOK_KODU
+        ) AS AltSorgu
+        WHERE AltSorgu.TARIH BETWEEN '2024-01-01' AND '2025-01-01' AND AltSorgu.[Stok Adı] IS NOT NULL
+        GROUP BY [Stok Adı]";
         }
 
         private string GetQuery3()
         {
             return @"
-            SELECT [Stok Adı], SUM([Çıkış Miktar]) AS ToplamCikis, SUM([Giriş Miktar]) AS ToplamGiris
-            FROM (
-    SELECT
-    CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'
-    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Müşteri Siparişi' 
-    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası' 
-    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade Faturası'
-    WHEN TSH.STHAR_FTIRSIP = 4 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'G' THEN 'Alış İrsaliyesi'
-    WHEN TSH.STHAR_FTIRSIP = 0 AND TSH.STHAR_HTUR = 'K' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Fişi'
-    WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade İrsaliyesi (Taşıma)'
+                SELECT [Stok Adı], SUM([Çıkış Miktar]) AS ToplamCikis, SUM([Giriş Miktar]) AS ToplamGiris
+        FROM (
+SELECT
+CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'
+WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'
+WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası'
+WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Müşteri Siparişi' 
+WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası' 
+WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade Faturası'
+WHEN TSH.STHAR_FTIRSIP = 4 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'G' THEN 'Alış İrsaliyesi'
+WHEN TSH.STHAR_FTIRSIP = 0 AND TSH.STHAR_HTUR = 'K' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Fişi'
+WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade İrsaliyesi (Taşıma)'
 
-    ELSE 'Diğer'
-    END AS 'Belge Tipi',
-    TSH.FISNO AS 'Belge Numarası',
-    TSH.STOK_KODU AS 'Stok Kodu', TS.STOK_ADI AS 'Stok Adı',
-    CASE
-    WHEN TSH.STHAR_GCKOD = 'C' THEN TSH.STHAR_GCMIK 
-    ELSE 0 
-    END AS 'Çıkış Miktar',
-    CASE
-    WHEN TSH.STHAR_GCKOD = 'G' THEN TSH.STHAR_GCMIK 
-    ELSE 0 
-    END AS 'Giriş Miktar',
-    TSH.STHAR_NF AS 'Stok Net Fiyat',
-    TSH.STHAR_BF AS 'Stok Birim Fiyat',
-    TSH.DEPO_KODU AS 'İşlem Deposu',
-    TSH.STHAR_TARIH TARIH
+ELSE 'Diğer'
+END AS 'Belge Tipi',
+TSH.FISNO AS 'Belge Numarası',
+TSH.STOK_KODU AS 'Stok Kodu', TS.STOK_ADI AS 'Stok Adı',
+CASE
+WHEN TSH.STHAR_GCKOD = 'C' THEN TSH.STHAR_GCMIK 
+ELSE 0 
+END AS 'Çıkış Miktar',
+CASE
+WHEN TSH.STHAR_GCKOD = 'G' THEN TSH.STHAR_GCMIK 
+ELSE 0 
+END AS 'Giriş Miktar',
+TSH.STHAR_NF AS 'Stok Net Fiyat',
+TSH.STHAR_BF AS 'Stok Birim Fiyat',
+TSH.DEPO_KODU AS 'İşlem Deposu',
+TSH.STHAR_TARIH TARIH
 
 
-    FROM dbo.tStokMasterHareket TSH
-    LEFT JOIN dbo.tStokMaster TS
-    ON TS.STOK_KODU = TSH.STOK_KODU
-            ) AS AltSorgu
-            WHERE AltSorgu.TARIH BETWEEN @date1 AND @date2
-            GROUP BY [Stok Adı]";
+FROM dbo.tStokMasterHareket TSH
+LEFT JOIN dbo.tStokMaster TS
+ON TS.STOK_KODU = TSH.STOK_KODU
+        ) AS AltSorgu
+        WHERE AltSorgu.TARIH BETWEEN '2024-01-01' AND '2025-01-01' AND AltSorgu.[Stok Adı] IS NOT NULL
+        GROUP BY [Stok Adı]";
         }
     }

@@ -151,7 +151,7 @@ public partial class Account_Gridview : System.Web.UI.Page
                     ASPxGridView1.SettingsBehavior.AllowFocusedRow = true;
                     ASPxGridView1.SettingsBehavior.EnableCustomizationWindow = true;
                     ASPxGridView1.SettingsBehavior.AllowDragDrop = true;
-                    ASPxGridView1.SettingsPager.PageSize = 100;
+                    ASPxGridView1.SettingsPager.PageSize = 50;
                     ASPxGridView1.SettingsPager.NumericButtonCount = 15;
 
                     ASPxGridView1.DataBind();
@@ -174,6 +174,29 @@ public partial class Account_Gridview : System.Web.UI.Page
             string date1 = Session["Date1"].ToString();
             string date2 = Session["Date2"].ToString();
             BindGridView(query, date1, date2);
+        }
+    }
+
+    protected void Unnamed_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (cbDegerSayisi.SelectedIndex == 0)
+        {
+            ASPxGridView1.SettingsPager.PageSize = 10;
+
+        }
+        else if (cbDegerSayisi.SelectedIndex == 1)
+        {
+            ASPxGridView1.SettingsPager.PageSize = 50;
+        }
+        else if (cbDegerSayisi.SelectedIndex == 2)
+        {
+            ASPxGridView1.SettingsPager.PageSize = 100;
+
+        }
+        else if (cbDegerSayisi.SelectedIndex == 3)
+        {
+            ASPxGridView1.SettingsPager.PageSize = 200;
+
         }
     }
 }

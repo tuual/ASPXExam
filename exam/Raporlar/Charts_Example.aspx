@@ -5,8 +5,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" runat="server">
 
 <style>
+    body{
+    }
     #page-wrapper {
-        margin: 30px;
+        margin:50px;
     }
 
     @media (max-width: 768px) {
@@ -18,18 +20,22 @@
     .chart-wrapper {
         margin-bottom: 50px;
     }
+   
 </style>
 
 <div id="page-wrapper">
 
     <!-- Tarih Filtreleri -->
     <div class="row mb-3 d-flex align-items-end">
-        <div class="col-auto input-small" style="min-width: 200px;">
-            <dx:BootstrapDateEdit ID="DateFilter1" runat="server" EditFormat="Custom" EditFormatString="dd/MM/yyyy" Caption="Başlangıç Tarihi" UseMaskBehavior="true" Width="200px" />
+        <div class="col-auto" style="min-width: 200px;">
+            <dx:BootstrapDateEdit ID="DateFilter1" runat="server" EditFormat="Custom" EditFormatString="dd/MM/yyyy" Caption="Başlangıç Tarihi" SettingsAdaptivity-Mode="OnWindowInnerWidth" UseMaskBehavior="true" >
+                    <CalendarProperties ChangeVisibleDateAnimationType="Slide" TodayButtonText="Bugün Tarihi " ></CalendarProperties>
+
+            </dx:BootstrapDateEdit>
         </div>
 
         <div class="col-auto input-small" style="min-width: 200px;">
-            <dx:BootstrapDateEdit ID="DateFilter2" runat="server" EditFormat="Custom" EditFormatString="dd/MM/yyyy" Caption="Bitiş Tarihi" UseMaskBehavior="true" Width="200px" />
+            <dx:BootstrapDateEdit ID="DateFilter2" runat="server" EditFormat="Custom" EditFormatString="dd/MM/yyyy" Caption="Bitiş Tarihi" UseMaskBehavior="true"  />
         </div>
 
         <div class="col-auto btn-small mt-2" style="min-width: 150px;">

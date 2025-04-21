@@ -2,8 +2,12 @@
 
 <asp:Content ID="Content" ContentPlaceHolderID="Content" runat="server">
     <style>
+        body{
+            padding-left: 20px;
+            padding-right:20px;
+        }
         #page-wrapper {
-            margin: 30px;
+            margin: 50px;
             transition: margin-left 0.3s ease-in-out;
         }
         
@@ -35,6 +39,7 @@
         left: 5px !important;
         right: auto !important;
     }
+        
 }
 
 
@@ -59,9 +64,12 @@
 
 <div class="row mb-3 d-flex align-items-end">
     <div class="col-auto input-small" style="min-width: 200px;">
-        <dx:BootstrapDateEdit CssClasses-Calendar="calendar-margin" ID="DateFilter1" runat="server" EditFormat="Custom" Width="200px"
-            AllowUserInput="true" EditFormatString="dd/MM/yyyy" Caption="Başlangıç Tarih" UseMaskBehavior="true">
-        </dx:BootstrapDateEdit>
+       <dx:BootstrapDateEdit ID="DateFilter1" runat="server" Width="250px"
+    EditFormat="Custom" EditFormatString="dd/MM/yyyy" Caption="Başlangıç Tarihi"
+    UseMaskBehavior="true" ClientInstanceName="date1">
+    <CalendarProperties ChangeVisibleDateAnimationType="Slide" />
+</dx:BootstrapDateEdit>
+
     </div>
 
     <div class="col-auto input-small" style="min-width: 200px;">
@@ -79,13 +87,12 @@
 
 </div>
       
-       <dx:BootstrapComboBox runat="server" SelectedIndex="0" Width="150px" Caption="Kayıt Sayısı">
+       <dx:BootstrapComboBox runat="server" SelectedIndex="0" Width="150px" Caption="Kayıt Sayısı" AutoPostBack="true" OnSelectedIndexChanged="Unnamed_SelectedIndexChanged" ID="cbDegerSayisi">
     <Items>
-        <dx:BootstrapListEditItem Text="Item1" Value="Item1" />
-        <dx:BootstrapListEditItem Text="Item2" Value="Item2" />
-        <dx:BootstrapListEditItem Text="Item3" Value="Item3" />
-        <dx:BootstrapListEditItem Text="Item4" Value="Item4" />
-        <dx:BootstrapListEditItem Text="Item5" Value="Item5" />
+        <dx:BootstrapListEditItem Text="10" Value="10" />
+        <dx:BootstrapListEditItem Text="50" Value="50" />
+        <dx:BootstrapListEditItem Text="100" Value="100" />
+        <dx:BootstrapListEditItem Text="200" Value="200" />
     </Items>
 </dx:BootstrapComboBox>
 
@@ -137,4 +144,23 @@
         </dx:ASPxPopupControl>
 
     </div> <!-- /#page-wrapper -->
+    <script type="text/javascript">
+        function resizeCalendarPopup() {
+            var editor = date1; // ClientInstanceName
+            if (editor && editor.GetCalendar()) {
+                var calendar = editor.GetCalendar();
+                var editorWidth = editor.GetInputElement().offsetWidth;
+
+                // Takvim popup'ını bul ve genişliğini ayarla
+                var popup = calendar.GetMainElement();
+                if (popup) {
+                    popup.style.width = editorWidth + "px";
+                }
+            }
+        }
+
+        // Takvim açıldığında çağır
+        date1.CalendarShown.AddHandler(resizeCalendarPopup);
+    </script>
+
 </asp:Content>
