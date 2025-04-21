@@ -270,10 +270,6 @@
         <ul id="reportList" class="list-group">
             <asp:Literal ID="ltReports" runat="server"></asp:Literal>
         </ul>
-
-<!--        <div class="sidebar-footer">
-            <asp:Button ID="btnLogout" runat="server" Text="Çıkış Yap" CssClass="btn btn-danger w-100 mb-2 text-white" OnClick="btnLogout_Click" />
-       </div> -->
     </div>
 
     <div id="main-content">
