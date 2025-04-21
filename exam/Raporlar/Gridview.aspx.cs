@@ -69,13 +69,19 @@ public partial class Account_Gridview : System.Web.UI.Page
         string formatDate1 = DateFilter1.Date == DateTime.MinValue ? "" : DateFilter1.Date.ToString("yyyy-MM-dd");
         string formatDate2 = DateFilter2.Date == DateTime.MinValue ? "" : DateFilter2.Date.ToString("yyyy-MM-dd");
 
-        string filterQuery = "SELECT CARI_KODU AS 'Müşteri Kodu', tcm.CARI_ISIM AS 'Müşteri Ünvan', FATIRS_NO AS 'Fatura Numarası'," +
-                             " FORMAT(TARIH,'dd.MM.yyyy') AS 'Fatura Tarihi'," +
-                             " FORMAT(CAST(BRUTTUTAR AS DECIMAL(18,2)),'N' ,'tr-TR') + ' TL' AS 'Brüt Tutar'," +
-                             " FORMAT(CAST(GENELTOPLAM AS DECIMAL(18,2)),'N','tr-TR') + ' TL' AS 'Genel Toplam'" +
-                             " FROM tFatura" +
-                             " LEFT JOIN dbo.tCariMaster tCM ON tcm.CARI_KOD = dbo.tFatura.CARI_KODU";
-
+        string filterQuery = "SELECT CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' " +
+            "AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'  WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' " +
+            "AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'  WHEN TSH.STHAR_FTIRSIP = 2 " +
+            "AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası' " +
+            "WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C'" +
+            " THEN 'Müşteri Siparişi'   WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' " +
+            "AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası'     ELSE 'Diğer'  END AS 'Belge Tipi'," +
+            "TSH.FISNO AS 'Belge Numarası',  TSH.STOK_KODU AS 'Stok Kodu', TS.STOK_ADI AS 'Stok Adı', " +
+            "CASE  WHEN TSH.STHAR_GCKOD = 'C' THEN TSH.STHAR_GCMIK   ELSE 0   END AS 'Çıkış Miktar'," +
+            "CASE  WHEN TSH.STHAR_GCKOD = 'G' THEN TSH.STHAR_GCMIK   ELSE 0   END AS 'Giriş Miktar'," +
+            "TSH.STHAR_NF AS 'Stok Net Fiyat',  TSH.STHAR_BF AS 'Stok Birim Fiyat',  TSH.DEPO_KODU AS 'İşlem Deposu' " +
+            "FROM dbo.tStokMasterHareket TSH  LEFT JOIN dbo.tStokMaster TS  ON TS.STOK_KODU = TSH.STOK_KODU";
+         
         // Eğer tarih seçilmemişse tarih filtresini kaldır
         if (!string.IsNullOrEmpty(formatDate1) && !string.IsNullOrEmpty(formatDate2))
         {
@@ -145,6 +151,8 @@ public partial class Account_Gridview : System.Web.UI.Page
                     ASPxGridView1.SettingsBehavior.AllowFocusedRow = true;
                     ASPxGridView1.SettingsBehavior.EnableCustomizationWindow = true;
                     ASPxGridView1.SettingsBehavior.AllowDragDrop = true;
+                    ASPxGridView1.SettingsPager.PageSize = 100;
+                    ASPxGridView1.SettingsPager.NumericButtonCount = 15;
 
                     ASPxGridView1.DataBind();
                 }
