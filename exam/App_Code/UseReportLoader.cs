@@ -61,6 +61,11 @@ public class UseReportLoader
                             reportUrl = "Raporlar/StokDurumu.aspx";
                             groupedReports["Stok"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
                         }
+                        else if (reportName == "Evrak Bilgileri")
+                        {
+                            reportUrl = "Raporlar/Charts_Example.aspx";
+                            groupedReports["Finans"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
+                        }
                         else
                         {
                             reportUrl = "#";
