@@ -80,7 +80,16 @@ public partial class Raporlar_Charts_Example : System.Web.UI.Page
             FROM (
                 SELECT
                     CASE 
-                        WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' THEN 'Satış İrsaliyesi'
+                        WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'
+                    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'
+                    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası'
+                    WHEN TSH.STHAR_FTIRSIP = 6 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Müşteri Siparişi' 
+                    WHEN TSH.STHAR_FTIRSIP = 2 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN 'Alınan İade Faturası' 
+                    WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade Faturası'
+                    WHEN TSH.STHAR_FTIRSIP = 4 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'G' THEN 'Alış İrsaliyesi'
+                    WHEN TSH.STHAR_FTIRSIP = 0 AND TSH.STHAR_HTUR = 'K' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Fişi'
+                    WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'L' AND TSH.STHAR_BGTIP = 'I' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İade İrsaliyesi (Taşıma)'
+
                         ELSE 'Diğer'
                     END AS [Belge Tipi]
                 FROM dbo.tStokMasterHareket TSH

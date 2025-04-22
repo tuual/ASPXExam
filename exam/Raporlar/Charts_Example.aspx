@@ -24,7 +24,9 @@
 
         <!-- Grafik 2 -->
         <div class="chart-wrapper">
-            <dx:WebChartControl ID="Chart2" runat="server" Width="1000px" Height="400px" CssClass="dxcharts" />
+            <dx:WebChartControl ID="Chart2" runat="server" Width="1000px" Height="400px" CssClass="dxcharts" >
+                
+            </dx:WebChartControl>
         </div>
 
         <!-- Grafik 3 -->

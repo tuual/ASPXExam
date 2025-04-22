@@ -9,6 +9,7 @@ public partial class Account_Gridview : System.Web.UI.Page
     private string dbName;
     private string dbLogin = ConfigurationService.dbLogin;
     private string dbPassword = ConfigurationService.dbPassword;
+    public Boolean calistirma = false;
     protected void Page_Load(object sender, EventArgs e)
     {
        
@@ -20,7 +21,7 @@ public partial class Account_Gridview : System.Web.UI.Page
             return;
         }
 
-
+        setVisibleColumns();
         int userId = Convert.ToInt32(Session["UserID"]);
         string reportName = "Müşteri Hareketleri"; // Bu sayfa ile ilgili rapor adı
         UseReportLoader reportLoader = new UseReportLoader();
@@ -69,7 +70,7 @@ public partial class Account_Gridview : System.Web.UI.Page
         string formatDate1 = DateFilter1.Date == DateTime.MinValue ? "" : DateFilter1.Date.ToString("yyyy-MM-dd");
         string formatDate2 = DateFilter2.Date == DateTime.MinValue ? "" : DateFilter2.Date.ToString("yyyy-MM-dd");
 
-        string filterQuery = "SELECT CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' " +
+        string filterQuery = "SELECT INCKEYNO,CASE WHEN TSH.STHAR_FTIRSIP = 3 AND TSH.STHAR_HTUR = 'H' AND TSH.STHAR_BGTIP = 'I' " +
             "AND TSH.STHAR_GCKOD = 'C' THEN 'Satış İrsaliyesi'  WHEN TSH.STHAR_FTIRSIP = 1 AND TSH.STHAR_HTUR = 'J' " +
             "AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'C' THEN 'Satış Faturası'  WHEN TSH.STHAR_FTIRSIP = 2 " +
             "AND TSH.STHAR_HTUR = 'J' AND TSH.STHAR_BGTIP = 'F' AND TSH.STHAR_GCKOD = 'G' THEN  'Alış Faturası' " +
@@ -136,14 +137,17 @@ public partial class Account_Gridview : System.Web.UI.Page
                         {
                             FieldName = column.ColumnName,
                             Caption = column.Caption,
-                            VisibleIndex = dt.Columns.IndexOf(column)
+                            VisibleIndex = dt.Columns.IndexOf(column),
+                            
                         };
                         ASPxGridView1.Columns.Add(gridColumn);
+                        calistirma = true;
                     }
 
                     ASPxGridView1.DataSource = dt;
-                    ASPxGridView1.KeyFieldName = "FATIRS_NO"; // Primary Key olabilecek bir alan
+                    ASPxGridView1.KeyFieldName = "INCKEYNO"; // Primary Key olabilecek bir alan
                     ASPxGridView1.SettingsBehavior.ColumnMoveMode = GridColumnMoveMode.ThroughHierarchy;
+                    ASPxGridView1.Columns[0].Visible = false;
                     ASPxGridView1.Settings.ShowFilterRow = true;
                     ASPxGridView1.Settings.ShowFilterRowMenu = true;
                     ASPxGridView1.Settings.ShowHeaderFilterButton = true;
@@ -151,8 +155,9 @@ public partial class Account_Gridview : System.Web.UI.Page
                     ASPxGridView1.SettingsBehavior.AllowFocusedRow = true;
                     ASPxGridView1.SettingsBehavior.EnableCustomizationWindow = true;
                     ASPxGridView1.SettingsBehavior.AllowDragDrop = true;
-                    ASPxGridView1.SettingsPager.PageSize = 50;
+                    ASPxGridView1.SettingsPager.PageSize = 10;
                     ASPxGridView1.SettingsPager.NumericButtonCount = 15;
+                    
 
                     ASPxGridView1.DataBind();
                 }
@@ -198,5 +203,22 @@ public partial class Account_Gridview : System.Web.UI.Page
             ASPxGridView1.SettingsPager.PageSize = 200;
 
         }
+    }
+
+    protected void cbDegerSayisi_DataBound(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void ASPxGridView1_DataBound(object sender, EventArgs e)
+    {
+      
+
+    }
+
+
+    public void setVisibleColumns(){
+    
+
     }
 }

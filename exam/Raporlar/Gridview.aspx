@@ -44,6 +44,7 @@
 
 
     </style>
+    <asp:HiddenField ID="hfWidth" runat="server" />
 
     <div id="page-wrapper">
 
@@ -74,11 +75,11 @@
 
     <div class="col-auto input-small" style="min-width: 200px;">
         <dx:BootstrapDateEdit CssClasses-Calendar="input-small" ID="DateFilter2" runat="server" EditFormat="Custom" EditFormatString="dd/MM/yyyy"
-            AllowUserInput="true" Width="200px" Caption="Bitiş Tarih" UseMaskBehavior="true">
+            AllowUserInput="true" Width="250px" Caption="Bitiş Tarih" UseMaskBehavior="true">
         </dx:BootstrapDateEdit>
     </div>
 
-    <div class="col-auto btn-small mt-2" style="min-width: 150px;">
+    <div class="col-auto btn-small mt-2" style="min-width: 200px;">
         <dx:BootstrapButton ID="btnTarih" Text="Uygula" runat="server" Width="200px" AutoPostBack="false" OnClick="btnTarih_Click">
             <SettingsBootstrap RenderOption="Default" />
         </dx:BootstrapButton>
@@ -103,23 +104,35 @@
         <!-- GridView - responsive scroll destekli -->
         <div style="overflow-x:hidden;">
     
-            <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="true" Width="100%" 
-                KeyFieldName="FATIRS_NO" Theme="MaterialCompact" OnPageIndexChanged="ASPxGridView1_PageIndexChanged">
+            <dx:ASPxGridView ID="ASPxGridView1"  runat="server" AutoGenerateColumns="true" Width="100%" 
+                KeyFieldName="INCKEYNO" ClientInstanceName="grid" Theme="MaterialCompact" OnDataBound="ASPxGridView1_DataBound" OnPageIndexChanged="ASPxGridView1_PageIndexChanged">
                 
-                <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true" />
-                <SettingsBehavior ColumnMoveMode="ThroughHierarchy" />
-                <Settings ShowFilterRow="true" ShowFilterRowMenu="true" />
                 <Settings ShowHeaderFilterButton="true" />
+      
+                
                 <SettingsBehavior FilterRowMode="OnClick" AllowFocusedRow="true" EnableCustomizationWindow="true" />
-                <SettingsExport EnableClientSideExportAPI="true" />
                 <Settings VerticalScrollableHeight="300" />
                 <SettingsContextMenu Enabled="true">
-                    <RowMenuItemVisibility ExportMenu-Visible="true" />
+                    <RowMenuItemVisibility ExportMenu-Visible="true" >
+<ExportMenu Visible="True"></ExportMenu>
+                    </RowMenuItemVisibility>
                 </SettingsContextMenu>
+                
+                <Settings ShowFilterRow="true" ShowFilterRowMenu="true" />
+                <SettingsBehavior ColumnMoveMode="ThroughHierarchy" />
                 <SettingsResizing ColumnResizeMode="Control" Visualization="Postponed" />
-                <Styles>
-                    <FixedColumn BackColor="LightBlue"></FixedColumn>
-                </Styles>
+                <SettingsDataSecurity AllowDelete="False" AllowInsert="False" />
+
+<SettingsPopup>
+<FilterControl AutoUpdatePosition="False"></FilterControl>
+</SettingsPopup>
+
+                <SettingsSearchPanel Visible="True" />
+                <SettingsExport EnableClientSideExportAPI="true" />
+                <Columns>
+                    <dx:GridViewCommandColumn ShowEditButton="True" VisibleIndex="0">
+                    </dx:GridViewCommandColumn>
+                </Columns>
                 <Toolbars>
                     <dx:GridViewToolbar>
                         <SettingsAdaptivity Enabled="true" EnableCollapseRootItemsToIcons="true" />
@@ -129,6 +142,10 @@
                         </Items>
                     </dx:GridViewToolbar>
                 </Toolbars>
+              
+                <Styles>
+                    <FixedColumn BackColor="LightBlue"></FixedColumn>
+                </Styles>
               
             </dx:ASPxGridView>
              
@@ -162,5 +179,6 @@
         // Takvim açıldığında çağır
         date1.CalendarShown.AddHandler(resizeCalendarPopup);
     </script>
+
 
 </asp:Content>
