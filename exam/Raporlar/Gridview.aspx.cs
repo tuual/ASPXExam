@@ -105,64 +105,72 @@ public partial class Account_Gridview : System.Web.UI.Page
             Response.Redirect("~/Login.aspx");
             return;
         }
-
-        using (SqlConnection con = new SqlConnection(connectionString))
+        try
         {
-            con.Open();
-
-            using (SqlCommand command = new SqlCommand(query, con))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                DateTime date1, date2;
+                con.Open();
 
-                if (DateTime.TryParse(formatDate1, out date1) && DateTime.TryParse(formatDate2, out date2))
+                using (SqlCommand command = new SqlCommand(query, con))
                 {
-                    command.Parameters.Add("@date1", SqlDbType.Date).Value = date1;
-                    command.Parameters.Add("@date2", SqlDbType.Date).Value = date2;
-                }
-                else
-                {
-                    command.Parameters.Add("@date1", SqlDbType.Date).Value = DBNull.Value;
-                    command.Parameters.Add("@date2", SqlDbType.Date).Value = DBNull.Value;
-                }
+                    DateTime date1, date2;
 
-                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                {
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    ASPxGridView1.Columns.Clear();
-
-                    foreach (DataColumn column in dt.Columns)
+                    if (DateTime.TryParse(formatDate1, out date1) && DateTime.TryParse(formatDate2, out date2))
                     {
-                        GridViewDataTextColumn gridColumn = new GridViewDataTextColumn
-                        {
-                            FieldName = column.ColumnName,
-                            Caption = column.Caption,
-                            VisibleIndex = dt.Columns.IndexOf(column),
-                            
-                        };
-                        ASPxGridView1.Columns.Add(gridColumn);
-                        calistirma = true;
+                        command.Parameters.Add("@date1", SqlDbType.Date).Value = date1;
+                        command.Parameters.Add("@date2", SqlDbType.Date).Value = date2;
+                    }
+                    else
+                    {
+                        command.Parameters.Add("@date1", SqlDbType.Date).Value = DBNull.Value;
+                        command.Parameters.Add("@date2", SqlDbType.Date).Value = DBNull.Value;
                     }
 
-                    ASPxGridView1.DataSource = dt;
-                    ASPxGridView1.KeyFieldName = "INCKEYNO"; // Primary Key olabilecek bir alan
-                    ASPxGridView1.SettingsBehavior.ColumnMoveMode = GridColumnMoveMode.ThroughHierarchy;
-                    ASPxGridView1.Columns[0].Visible = false;
-                    ASPxGridView1.Settings.ShowFilterRow = true;
-                    ASPxGridView1.Settings.ShowFilterRowMenu = true;
-                    ASPxGridView1.Settings.ShowHeaderFilterButton = true;
-                    ASPxGridView1.SettingsBehavior.FilterRowMode = GridViewFilterRowMode.OnClick;
-                    ASPxGridView1.SettingsBehavior.AllowFocusedRow = true;
-                    ASPxGridView1.SettingsBehavior.EnableCustomizationWindow = true;
-                    ASPxGridView1.SettingsBehavior.AllowDragDrop = true;
-                    ASPxGridView1.SettingsPager.PageSize = 10;
-                    ASPxGridView1.SettingsPager.NumericButtonCount = 15;
-                    
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        ASPxGridView1.Columns.Clear();
 
-                    ASPxGridView1.DataBind();
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            GridViewDataTextColumn gridColumn = new GridViewDataTextColumn
+                            {
+                                FieldName = column.ColumnName,
+                                Caption = column.Caption,
+                                VisibleIndex = dt.Columns.IndexOf(column),
+
+                            };
+                            ASPxGridView1.Columns.Add(gridColumn);
+                            calistirma = true;
+                        }
+
+                        ASPxGridView1.DataSource = dt;
+                        ASPxGridView1.KeyFieldName = "INCKEYNO"; // Primary Key olabilecek bir alan
+                        ASPxGridView1.SettingsBehavior.ColumnMoveMode = GridColumnMoveMode.ThroughHierarchy;
+                        ASPxGridView1.Columns[0].Visible = false;
+                        ASPxGridView1.Settings.ShowFilterRow = true;
+                        ASPxGridView1.Settings.ShowFilterRowMenu = true;
+                        ASPxGridView1.Settings.ShowHeaderFilterButton = true;
+                        ASPxGridView1.SettingsBehavior.FilterRowMode = GridViewFilterRowMode.OnClick;
+                        ASPxGridView1.SettingsBehavior.AllowFocusedRow = true;
+                        ASPxGridView1.SettingsBehavior.EnableCustomizationWindow = true;
+                        ASPxGridView1.SettingsBehavior.AllowDragDrop = true;
+                        ASPxGridView1.SettingsPager.PageSize = 10;
+                        ASPxGridView1.SettingsPager.NumericButtonCount = 15;
+
+
+                        ASPxGridView1.DataBind();
+                    }
                 }
             }
         }
+        catch (SqlException ex)
+        {
+            SqlExceptionHandler sqlExceptionHandler = new SqlExceptionHandler(ex, this.Page);
+
+        }
+       
     }
 
     protected void btnTarih_Click(object sender, EventArgs e)

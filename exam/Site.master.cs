@@ -116,4 +116,10 @@ public partial class SiteMaster : System.Web.UI.MasterPage
     {
         Response.Redirect("KullaniciEkle.aspx");
     }
+
+    protected void btnSwitchCompany_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("/Account/SirketSecme.aspx");
+
+    }
 }

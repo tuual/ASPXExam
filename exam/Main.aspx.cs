@@ -9,10 +9,7 @@ public partial class Main : System.Web.UI.Page
         {
             Response.Redirect("~/Account/Login.aspx");
         }
-        string userid = Session["UserID"].ToString();
-        string servername = Session["ServerName"].ToString();
-        string secilensirket = Session["SecilenSirket"].ToString();
-        MsgBox msg = new MsgBox(userid+servername+secilensirket , this.Page, this);
+      
 
      
     }

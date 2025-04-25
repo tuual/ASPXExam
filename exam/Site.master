@@ -257,7 +257,7 @@
   <ul class="dropdown-menu dropdown-menu-end animated-dropdown" aria-labelledby="userDropdown" runat="server">
     <li><asp:LinkButton ID="btnCompanyInfo" runat="server" CssClass="dropdown-item" Text="Şirket Bilgileri" /></li>
     <li><asp:LinkButton ID="lnkUserAdd" runat="server" CssClass="dropdown-item" Text="Kullanıcı Ekle" OnClick="lnkUserAdd_Click" /></li>
-    <li><asp:LinkButton ID="btnSwitchCompany" runat="server" CssClass="dropdown-item" Text="Şirket Değiştir" /></li>
+    <li><asp:LinkButton ID="btnSwitchCompany" runat="server" CssClass="dropdown-item" Text="Şirket Değiştir" OnClick="btnSwitchCompany_Click" /></li>
     <li><asp:Button ID="Button1" runat="server" Text="Çıkış Yap" CssClass="dropdown-item text-danger" OnClick="btnLogout_Click" /></li>
   </ul>
 </div>

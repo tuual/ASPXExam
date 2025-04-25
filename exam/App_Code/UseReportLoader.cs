@@ -5,6 +5,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using DevExpress.DataProcessing;
+using DevExpress.Pdf.Native.BouncyCastle.Asn1.Ocsp;
 
 /// <summary>
 /// Summary description for UseReportLoader
@@ -43,27 +45,29 @@ public class UseReportLoader
 
                     while (reader.Read())
                     {
+                        // Kullanıcının yetkili olduğu raporları oku
                         string reportName = reader["ReportName"].ToString();
                         string reportUrl = "";
-
                         if (reportName == "Müşteri Hareketleri")
                         {
-                            reportUrl = "Raporlar/Gridview.aspx";
+
+                            reportUrl = "/Raporlar/Gridview.aspx";
                             groupedReports["Finans"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
+                            
                         }
                         else if (reportName == "Fatura Raporu")
                         {
-                            reportUrl = "Raporlar/FaturaGrid.aspx";
+                            reportUrl = "/Raporlar/FaturaGrid.aspx";
                             groupedReports["Finans"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
                         }
                         else if (reportName == "Stok Durumu")
                         {
-                            reportUrl = "Raporlar/StokDurumu.aspx";
+                            reportUrl = "/Raporlar/StokDurumu.aspx";
                             groupedReports["Stok"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
                         }
                         else if (reportName == "Evrak Bilgileri")
                         {
-                            reportUrl = "Raporlar/Charts_Example.aspx";
+                            reportUrl = "/Raporlar/Charts_Example.aspx";
                             groupedReports["Finans"].Add(new KeyValuePair<string, string>(reportName, reportUrl));
                         }
                         else
