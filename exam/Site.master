@@ -257,7 +257,12 @@
   <ul class="dropdown-menu dropdown-menu-end animated-dropdown" aria-labelledby="userDropdown" runat="server">
     <li><asp:LinkButton ID="btnCompanyInfo" runat="server" CssClass="dropdown-item" Text="Şirket Bilgileri" /></li>
     <li><asp:LinkButton ID="lnkUserAdd" runat="server" CssClass="dropdown-item" Text="Kullanıcı Ekle" OnClick="lnkUserAdd_Click" /></li>
-    <li><asp:LinkButton ID="btnSwitchCompany" runat="server" CssClass="dropdown-item" Text="Şirket Değiştir" OnClick="btnSwitchCompany_Click" /></li>
+<li>
+  <a class="dropdown-item" href="javascript:void(0);" onclick="$('#modalSirketDegistirme').modal('show');">
+    Şirket Değiştir
+  </a>
+</li>
+
     <li><asp:Button ID="Button1" runat="server" Text="Çıkış Yap" CssClass="dropdown-item text-danger" OnClick="btnLogout_Click" /></li>
   </ul>
 </div>
@@ -265,7 +270,7 @@
 
 
     <!-- SIDEBAR -->
-    <div id="sidebar">
+    <div id="sidebar" runat="server">
         <h4>Raporlar</h4>
         <ul id="reportList" class="list-group">
             <asp:Literal ID="ltReports" runat="server"></asp:Literal>
@@ -276,6 +281,25 @@
         <asp:ContentPlaceHolder ID="Content" runat="server">
         </asp:ContentPlaceHolder>
     </div>
+
+    <!-- Modal: Şirket Seçme -->
+   <!-- MODAL: Şirket Değiştir -->
+<div class="modal fade" id="modalSirketDegistirme" tabindex="-1" aria-labelledby="modalSirketDegistirmeLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Şirket Değiştir</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+      </div>
+      <div class="modal-body" style="padding: 0; height: 400px;">
+        <iframe id="iframeSirketDegistirme" src="/Account/SirketDegistirme.aspx" width="100%" height="100%" style="border: none;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
     </form>
 

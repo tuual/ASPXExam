@@ -31,7 +31,7 @@ public class SqlExceptionHandler
                 msgBox = new MsgBox("Dönüştürme hatası.", page, this);
                 break;
             default:
-                msgBox = new MsgBox("Hata oluştu", page, this);
+                msgBox = new MsgBox("Hata oluştu \n" + ex.ToString(), page, this);
                 break;
         }
     }

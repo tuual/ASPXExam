@@ -9,6 +9,7 @@ using System.Diagnostics;
 using DevExpress.Xpo.DB;
 using DevExpress.Web.ASPxRichEdit.Forms;
 using System.Web.Routing;
+using System.IO;
 
 public partial class SiteMaster : System.Web.UI.MasterPage
 {
@@ -16,11 +17,45 @@ public partial class SiteMaster : System.Web.UI.MasterPage
     {
         if (Session["UserID"] == null && Session["ServerName"] == null && Session["SecilenSirket"] == null)
         {
-            string currentPage = Request.Url.AbsolutePath.ToLower();
-            // **Eğer zaten Login sayfasındaysa tekrar yönlendirme yapma**
-            if (!currentPage.Contains("login.aspx"))
+            string path = Request.Url.AbsolutePath.ToLower();
+
+            // 🟡 Navbar'ı sadece belirli sayfalarda gizle (örneğin: iframe modallar)
+            if (path.Contains("sirketdegistirme.aspx") || path.Contains("sirketsecme.aspx") || path.Contains("login.aspx"))
             {
-                Response.Redirect("~/Account/Login.aspx");
+                if (Navbar != null)
+                    Navbar.Visible = false;
+
+                if (sidebar != null) // Sidebar'a da runat="server" verildiğini varsayıyorum
+                    sidebar.Visible = false;
+            }
+
+            // 🔵 Login kontrolü ve admin butonları
+            if (Session["UserID"] == null && Session["ServerName"] == null && Session["SecilenSirket"] == null)
+            {
+                if (!path.Contains("login.aspx"))
+                {
+                    Response.Redirect("~/Account/Login.aspx");
+                }
+            }
+
+            if (Session["UserID"] != null)
+            {
+                int userId = Convert.ToInt32(Session["UserID"]);
+                bool isAdmin = Session["IsAdmin"] != null && Convert.ToBoolean(Session["IsAdmin"]);
+
+                lnkUserAdd.Visible = isAdmin;
+            }
+            if (path.Contains("sirketdegistirme.aspx"))
+            {
+                if (Navbar != null)
+                {
+                    Navbar.Visible = false;
+                }
+            }
+
+            if (!IsPostBack)
+            {
+                LoadUserReports();
             }
         }
 
@@ -47,19 +82,18 @@ public partial class SiteMaster : System.Web.UI.MasterPage
         }
         navBarGizleme();
     }
-  
+
 
     private void navBarGizleme()
     {
-        // **Eğer Login sayfasındaysa Navbar'ı gizle**
+        // Eğer Login sayfasındaysa Navbar'ı gizle
         if (Request.Url.AbsolutePath.Contains("Login.aspx"))
-
             if (Session["UserID"] == null && !Request.Url.AbsolutePath.Contains("Account/Login.aspx"))
             {
                 Response.Redirect("Account/Login.aspx"); // Kullanıcı giriş yapmadıysa Login sayfasına yönlendir
             }
-        if (Request.Url.AbsolutePath.Contains("SirketSecme.aspx"))
 
+        if (Request.Url.AbsolutePath.Contains("SirketSecme.aspx"))
             if (Session["ServerName"] == null && Session["SecilenSirket"] == null)
             {
                 Response.Redirect("Account/SirketSecme.aspx");
@@ -73,19 +107,15 @@ public partial class SiteMaster : System.Web.UI.MasterPage
             }
         }
 
-
-        // Eğer Login sayfasındaysa Navbar'ı gizle
-        if (Request.Url.AbsolutePath.Contains("Account/Login.aspx"))
+        // ✅ BURASI EKLENECEK KISIM
+        if (Request.Url.AbsolutePath.Contains("Account/SirketDegistirme.aspx"))
         {
             if (Navbar != null)
             {
                 Navbar.Visible = false;
             }
         }
-
-      
     }
-
     private void LoadUserReports()
     {
         if (Session["UserID"] == null)
