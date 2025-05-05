@@ -26,6 +26,11 @@
     <style>
         body {
             background-color: #f8f9fa;
+            height: 90vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .login-container {
