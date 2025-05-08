@@ -56,7 +56,12 @@ public partial class SiteMaster : System.Web.UI.MasterPage
             if (!IsPostBack)
             {
                 LoadUserReports();
+
+                // Şirket adını yazdır (Literal için Text kullanılabilir)
+                string sirketAdi = Session["SirketAdi"] != null ? Session["SirketAdi"].ToString() : "Şirket Seçilmedi";
+                selectedCompanyName.Text = sirketAdi;
             }
+
         }
 
 

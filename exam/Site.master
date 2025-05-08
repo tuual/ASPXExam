@@ -255,7 +255,12 @@
     <i class="lni lni-cog fs-5"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end animated-dropdown" aria-labelledby="userDropdown" runat="server">
-    <li><asp:LinkButton ID="btnCompanyInfo" runat="server" CssClass="dropdown-item" Text="Şirket Bilgileri" /></li>
+        <<li class="dropdown-header text-center">
+    <span class="badge bg-primary text-light rounded-pill px-3 py-2">
+        <asp:Literal ID="selectedCompanyName" runat="server" />
+    </span>
+</li>
+
     <li><asp:LinkButton ID="lnkUserAdd" runat="server" CssClass="dropdown-item" Text="Kullanıcı Ekle" OnClick="lnkUserAdd_Click" /></li>
 <li>
   <a class="dropdown-item" href="javascript:void(0);" onclick="$('#modalSirketDegistirme').modal('show');">
@@ -323,6 +328,46 @@
      
 
     </script>
+
+    <script>
+        const dropdownBtn = document.getElementById("userDropdown");
+        const dropdownMenu = document.getElementById("userDropdownMenu");
+
+        // Tıklandığında aç / kapa
+        dropdownBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); // Tıklama dışarı yansımasın
+
+            const isVisible = dropdownMenu.classList.contains("show");
+
+            // Diğer açık dropdownları kapat
+            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                menu.classList.remove("show");
+                menu.style.display = "none";
+            });
+
+            if (!isVisible) {
+                dropdownMenu.style.display = "block";
+                setTimeout(() => dropdownMenu.classList.add("show"), 10);
+            }
+        });
+
+        // Sayfanın başka bir yerine tıklanırsa menüyü kapat
+        document.addEventListener("click", function (e) {
+            if (!dropdownMenu.contains(e.target) && !dropdownBtn.contains(e.target)) {
+                dropdownMenu.classList.remove("show");
+                dropdownMenu.style.display = "none";
+            }
+        });
+
+        // Menüdeki bir linke tıklanırsa menüyü kapat
+        dropdownMenu.querySelectorAll(".dropdown-item").forEach(item => {
+            item.addEventListener("click", function () {
+                dropdownMenu.classList.remove("show");
+                dropdownMenu.style.display = "none";
+            });
+        });
+    </script>
+
 
     <script>
         function closeAllAccordions() {

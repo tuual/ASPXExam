@@ -59,17 +59,19 @@ public partial class Account_SirketDegistirme : System.Web.UI.Page
         if (cbSirketSec.SelectedIndex > -1)
         {
             String secilenSirket = cbSirketSec.SelectedItem.Text;
-            Session["SecilenSirket"] = secilenSirket;
 
-            Session["DynamicConnectionString"] =
-                "Server=" + Session["ServerName"] +
-                ";Database=" + Session["SecilenSirket"] +
-                ";User Id=" + dbLogin + ";Password=" + dbPassword + ";";
+            // 🔹 Seçilen şirket adını Session'a kaydet
+            Session["SecilenSirket"] = secilenSirket;
+            Session["SirketAdi"] = secilenSirket;
+
+            // 🔹 Bağlantı stringini oluştur
+            Session["DynamicConnectionString"] = "Server=" + Session["ServerName"] + ";Database=" + Session["SecilenSirket"] + ";User Id=biltekbilisim;Password=Bilisim20037816;";
 
             lblMessage.ForeColor = Color.Green;
-            lblMessage.Text = "Şirket başarıyla değiştirildi. Yönlendiriliyorsunuz...";
+            lblMessage.Text = "Şirket seçimi başarılı. Yönlendiriliyorsunuz...";
 
-            ClientScript.RegisterStartupScript(this.GetType(), "CloseAndReload", "window.parent.location.reload();", true);
+            // 🔹 Yönlendirme
+            Response.Redirect("~/Main.aspx");
         }
         else
         {
@@ -77,4 +79,5 @@ public partial class Account_SirketDegistirme : System.Web.UI.Page
             lblMessage.Text = "Lütfen bir şirket seçiniz.";
         }
     }
+
 }

@@ -61,21 +61,26 @@ public partial class Account_SirketSecme : System.Web.UI.Page
         if (cbSirketSec.SelectedIndex > -1)
         {
             String secilenSirket = cbSirketSec.SelectedItem.Text;
-            Session["SecilenSirket"] = secilenSirket;
-            lblMessage.ForeColor = Color.Green;
-            
-            Session["DynamicConnectionString"] = "Server=" + Session["ServerName"] + ";Database=" + Session["SecilenSirket"] +";User Id=biltekbilisim;Password=Bilisim20037816;";
-            lblMessage.Text = "Şirket seçimi başarılı. Yönlendiriliyorsunuz...";
-            Timer timer = new Timer();
-            timer.Interval = 2000;
-            Response.Redirect("~/Main.aspx");
 
+            // 🔹 Seçilen şirket adını Session'a kaydet
+            Session["SecilenSirket"] = secilenSirket;
+            Session["SirketAdi"] = secilenSirket;
+
+            // 🔹 Bağlantı stringini oluştur
+            Session["DynamicConnectionString"] = "Server=" + Session["ServerName"] + ";Database=" + Session["SecilenSirket"] + ";User Id=biltekbilisim;Password=Bilisim20037816;";
+
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Text = "Şirket seçimi başarılı. Yönlendiriliyorsunuz...";
+
+            // 🔹 Yönlendirme
+            Response.Redirect("~/Main.aspx");
         }
         else
         {
             lblMessage.ForeColor = Color.Red;
             lblMessage.Text = "Lütfen bir şirket seçiniz.";
         }
-     
     }
+
+
 }
